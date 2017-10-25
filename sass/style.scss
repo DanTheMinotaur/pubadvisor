@@ -1,0 +1,88 @@
+//compass import for components and mixins
+@import "compass";
+//font import
+@include font-face('panton', '../fonts/regular.otf, ../fonts/bold.otf');
+//global colors
+$color_primary: #E8C300;
+$dark_text: #414141;
+$white_text: #FFFFFF;
+$light_grey: #EEEEEE;
+
+//bootstrap breakpoints
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+
+//--------------------------BODY------------------------------------
+html, body{
+    background-color: $light_grey;
+    font-family: 'panton';
+}
+
+//--------------------------TOP SECTION------------------------------------
+.top{
+    background-image: url(../images/top_bg.jpg);
+    background-position: center;
+    color: $white_text;
+    height: 240px;
+    //we hiding the top section for mobiles and replace with foldable navbar
+    @media screen and (max-width: $md){
+        display: none;
+    }
+    .logo{
+        margin-top: 10px;
+    }
+    .avatar{
+        float: right;
+        margin-top: 20px;
+        width:70px;
+        height: 70px;
+        border-radius: 50%;
+        border: solid 3px $color_primary;
+        background-image: url('../images/avatar.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    .searchWrap{
+        margin-top: 30px;
+        border: solid 3px $light_grey;
+        border-radius: 10px;
+        @include transition(border-color .6s ease);
+        &.active{
+            border-color: $color_primary;
+        }
+        .searchField{
+            height: 56px;
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            border-radius: 8px;
+            color: $white_text;
+            font-size: 26px;
+            padding: 14px;
+            caret-color: rgba($color: $white_text, $alpha: 0.6);
+            @include transition(border .6s ease);
+            &:focus{
+                outline: none !important;
+                box-shadow: none !important;
+            }
+        }
+        .searchBtn{
+            font-size: 26px;
+            height: 56px;
+            color: $light_grey;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            &:hover{
+                color: $color_primary;
+            }
+            &:focus{
+                outline: none !important;
+                box-shadow: none !important;
+            }
+        }
+    }
+}
