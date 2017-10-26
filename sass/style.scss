@@ -18,6 +18,7 @@ $xl: 1200px;
 html, body{
     background-color: $light_grey;
     font-family: 'panton';
+    color: $dark_text;
 }
 
 //--------------------------TOP SECTION------------------------------------
@@ -85,4 +86,65 @@ html, body{
             }
         }
     }
+}
+//-------------------SELECTION SECTION------------------------------------
+.selection{
+    margin-top: 30px;
+    margin-bottom: 50px;
+    select{
+        option{
+            background-color: $light_grey;
+            color: $dark_text;
+            font-weight: bold;
+        }
+        height: 48px;
+        border-radius: 20px;
+        border-color: $color_primary;
+        border-width: 2px;
+        @include appearance(none);
+        background: #F7F7F7 url('../images/arr_down.png') 88% center no-repeat;
+        @media screen and (max-width: $lg){
+            background: #F7F7F7 url('../images/arr_down.png') 96% center no-repeat;
+            background-size: 22px;
+        }
+        background-size: 22px;
+        padding: 0 24px;
+        font-size: 22px;
+        font-weight: bold;
+        width: 100%;
+        &:focus{
+            outline: none;
+        }
+        &[name=sortby] {
+            float: right;
+        }
+    }
+}
+//--------------------------RESULTS SECTION------------------------------------
+.results{
+    .result{
+        margin: 50px 0;
+        background-color: $color_primary;
+        min-height: 200px;
+        border-radius: 14px;
+        .logoWrapper{
+            top:0; right:0; left:0;
+            margin: auto;
+            position: absolute;
+            background-color: $color_primary;
+            border-radius: 50%;
+            width: 108px;
+            height: 108px;
+            .logo{
+                width: 100px;
+                height: 100px;
+                margin: 4px 4px;
+                border-radius: 50%;
+                background: url('../images/heineken.svg') center no-repeat;
+                background-size: 100%;
+            }
+        }
+        
+    }
+    
 }

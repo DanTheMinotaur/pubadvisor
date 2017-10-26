@@ -44,6 +44,80 @@
     </div>
   </section>
 
+  <!--SELECTION-->
+  <section class="selection">
+    <div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-lg-2">
+          <h4 class="text-center">Category:</h4>
+          <select name="category">
+            <option value="all" selected>All</option>
+            <option value="pub">Pub</option>
+            <option value="pint">Pint</option>
+          </select>
+        </div>
+        <div class="col-lg-3"></div>
+        <div class="col-lg-2">
+          <h4 class="text-center">Sort by:</h4>
+          <select name="sortby">
+            <option value="name" selected>Name</option>
+            <option value="rating">Rating</option>
+            <option value="price">Price</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--RESULTS-->
+  <section class="results">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="result">
+            <div class="logoWrapper">
+              <div class="logo"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="result">
+            <div class="logoWrapper">
+              <div class="logo"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="result">
+            <div class="logoWrapper">
+              <div class="logo"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="result">
+            <div class="logoWrapper">
+              <div class="logo"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="result">
+            <div class="logoWrapper">
+              <div class="logo"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="result">
+            <div class="logoWrapper">
+              <div class="logo"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- SCRIPTS-->
   <script src="js/jquery.min.js"></script>
