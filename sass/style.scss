@@ -1,7 +1,8 @@
 //compass import for components and mixins
 @import "compass";
-//font import
-@include font-face('panton', '../fonts/regular.otf, ../fonts/bold.otf');
+//fonts import, full compatibility mode :)
+@include font-face('panton', font-files("../fonts/regular.otf", "../fonts/regular.ttf", "../fonts/regular.woff"), '../fonts/regular.eot', normal);
+@include font-face('panton', font-files("../fonts/bold.otf", "../fonts/bold.ttf", "../fonts/bold.woff"), '../fonts/bold.eot', bold);
 //global colors
 $color_primary: #E8C300;
 $dark_text: #414141;
@@ -125,10 +126,23 @@ html, body{
     .result{
         margin: 50px 0;
         background-color: $color_primary;
-        min-height: 200px;
+        padding-bottom: 14px;
         border-radius: 14px;
+        position: relative;
+        h1{
+            padding-top: 60px;
+            font-weight: bold;
+            font-size: 35px;
+        }
+        h3{
+            font-weight: bold;
+            font-size: 20px;
+            color: $white_text;
+            margin:0 !important;
+            padding:0 !important;
+        }
         .logoWrapper{
-            top:0; right:0; left:0;
+            top:-54px; right:0; left:0;
             margin: auto;
             position: absolute;
             background-color: $color_primary;

@@ -74,45 +74,51 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-4">
-          <div class="result">
-            <div class="logoWrapper">
-              <div class="logo"></div>
-            </div>
+          <div class="result text-center">
+            <div class="logoWrapper"><div class="logo"></div></div>
+            <h1>Heineken</h1>
+            <h3>Netherlands</h3>
+            <h3>5% vol</h3>
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="result">
-            <div class="logoWrapper">
-              <div class="logo"></div>
-            </div>
+          <div class="result text-center">
+            <div class="logoWrapper"><div class="logo"></div></div>
+            <h1>Heineken</h1>
+            <h3>Netherlands</h3>
+            <h3>5% vol</h3>
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="result">
-            <div class="logoWrapper">
-              <div class="logo"></div>
-            </div>
+          <div class="result text-center">
+            <div class="logoWrapper"><div class="logo"></div></div>
+            <h1>Heineken</h1>
+            <h3>Netherlands</h3>
+            <h3>5% vol</h3>
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="result">
-            <div class="logoWrapper">
-              <div class="logo"></div>
-            </div>
+          <div class="result text-center">
+            <div class="logoWrapper"><div class="logo"></div></div>
+            <h1>Heineken</h1>
+            <h3>Netherlands</h3>
+            <h3>5% vol</h3>
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="result">
-            <div class="logoWrapper">
-              <div class="logo"></div>
-            </div>
+          <div class="result text-center">
+            <div class="logoWrapper"><div class="logo"></div></div>
+            <h1>Heineken</h1>
+            <h3>Netherlands</h3>
+            <h3>5% vol</h3>
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="result">
-            <div class="logoWrapper">
-              <div class="logo"></div>
-            </div>
+          <div class="result text-center">
+            <div class="logoWrapper"><div class="logo"></div></div>
+            <h1>Heineken</h1>
+            <h3>Netherlands</h3>
+            <h3>5% vol</h3>
           </div>
         </div>
       </div>
