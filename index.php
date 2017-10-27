@@ -47,8 +47,7 @@
   <!--SELECTION-->
   <section class="selection">
     <div class="container">
-    <div class="row">
-        <div class="col"></div>
+    <div class="row justify-content-end">
         <div class="col-lg-2">
           <h4 class="text-center">Category:</h4>
           <select name="category">
@@ -74,53 +73,53 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-4">
-          <div class="result text-center">
-            <div class="logoWrapper"><div class="logo"></div></div>
+          <div class="result beer text-center">
+            <div class="logoWrapper"><div class="logo" data-src='images/heineken.svg'></div></div>
             <h1>Heineken</h1>
             <h3>Netherlands</h3>
             <h3>5% vol</h3>
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="result text-center">
-            <div class="logoWrapper"><div class="logo"></div></div>
-            <h1>Heineken</h1>
-            <h3>Netherlands</h3>
-            <h3>5% vol</h3>
+          <div class="result pub text-center">
+            <div class="logoWrapper"><div class="logo" data-src='images/drunken_fish.png'></div></div>
+            <h1>Drunken Fish</h1>
+            <h3>Mayor Street IFSC</h3>
+            <h3>Dublin 1</h3>
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="result text-center">
-            <div class="logoWrapper"><div class="logo"></div></div>
-            <h1>Heineken</h1>
-            <h3>Netherlands</h3>
-            <h3>5% vol</h3>
-          </div>
+        <div class="result beer text-center">
+          <div class="logoWrapper"><div class="logo" data-src='images/heineken.svg'></div></div>
+          <h1>Heineken</h1>
+          <h3>Netherlands</h3>
+          <h3>5% vol</h3>
+        </div>
         </div>
         <div class="col-lg-4">
-          <div class="result text-center">
-            <div class="logoWrapper"><div class="logo"></div></div>
-            <h1>Heineken</h1>
-            <h3>Netherlands</h3>
-            <h3>5% vol</h3>
-          </div>
+        <div class="result beer text-center">
+          <div class="logoWrapper"><div class="logo" data-src='images/heineken.svg'></div></div>
+          <h1>Heineken</h1>
+          <h3>Netherlands</h3>
+          <h3>5% vol</h3>
         </div>
-        <div class="col-lg-4">
-          <div class="result text-center">
-            <div class="logoWrapper"><div class="logo"></div></div>
-            <h1>Heineken</h1>
-            <h3>Netherlands</h3>
-            <h3>5% vol</h3>
-          </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="result pub text-center">
+          <div class="logoWrapper"><div class="logo" data-src='images/drunken_fish.png'></div></div>
+          <h1>Drunken Fish</h1>
+          <h3>Mayor Street IFSC</h3>
+          <h3>Dublin 1</h3>
         </div>
-        <div class="col-lg-4">
-          <div class="result text-center">
-            <div class="logoWrapper"><div class="logo"></div></div>
-            <h1>Heineken</h1>
-            <h3>Netherlands</h3>
-            <h3>5% vol</h3>
-          </div>
-        </div>
+      </div>
+      <div class="col-lg-4">
+      <div class="result beer text-center">
+        <div class="logoWrapper"><div class="logo" data-src='images/heineken.svg'></div></div>
+        <h1>Heineken</h1>
+        <h3>Netherlands</h3>
+        <h3>5% vol</h3>
+      </div>
+      </div>
       </div>
     </div>
   </section>

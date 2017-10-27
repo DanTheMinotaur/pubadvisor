@@ -1,8 +1,18 @@
 //compass import for components and mixins
 @import "compass";
 //fonts import, full compatibility mode :)
-@include font-face('panton', font-files("../fonts/regular.otf", "../fonts/regular.ttf", "../fonts/regular.woff"), '../fonts/regular.eot', normal);
-@include font-face('panton', font-files("../fonts/bold.otf", "../fonts/bold.ttf", "../fonts/bold.woff"), '../fonts/bold.eot', bold);
+@font-face {
+    font-family: 'pan';
+    src: url('../fonts/regular.woff') format('woff'),
+         url('../fonts/regular.ttf') format('truetype');
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'pan';
+    src: url('../fonts/bold.woff') format('woff'),
+         url('../fonts/bold.ttf') format('truetype');
+    font-weight: bold;
+}
 //global colors
 $color_primary: #E8C300;
 $dark_text: #414141;
@@ -18,7 +28,7 @@ $xl: 1200px;
 //--------------------------BODY------------------------------------
 html, body{
     background-color: $light_grey;
-    font-family: 'panton';
+    font-family: 'pan';
     color: $dark_text;
 }
 
@@ -126,11 +136,18 @@ html, body{
     .result{
         margin: 50px 0;
         background-color: $color_primary;
+        padding-top: 54px;
         padding-bottom: 14px;
         border-radius: 14px;
         position: relative;
+        cursor: pointer;
+        
+        @include transition(all .3s);
+        &:hover{
+            @include transform(scale(1.08));
+            @include box-shadow(0px 0px 5px 2px rgba(0,0,0,0.2));
+        }
         h1{
-            padding-top: 60px;
             font-weight: bold;
             font-size: 35px;
         }
@@ -154,7 +171,7 @@ html, body{
                 height: 100px;
                 margin: 4px 4px;
                 border-radius: 50%;
-                background: url('../images/heineken.svg') center no-repeat;
+                background: $white_text center no-repeat;
                 background-size: 100%;
             }
         }
