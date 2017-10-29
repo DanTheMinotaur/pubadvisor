@@ -34,6 +34,11 @@ html, body{
 
 //--------------------------TOP SECTION------------------------------------
 .top{
+    .pa-logo{
+        img{
+            cursor: pointer;
+        }
+    }
     background-image: url(../images/top_bg.jpg);
     background-position: center;
     color: $white_text;
@@ -45,8 +50,8 @@ html, body{
     .icons {
         font-size: 44px;
         .locationIcon{
-            cursor: pointer;
             svg{
+                cursor: pointer;
                 height: 44px;
                 &:hover path{
                     fill: $color_primary;
@@ -67,6 +72,7 @@ html, body{
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        cursor: pointer;
     }
     .searchWrap{
         margin-top: 30px;
@@ -190,6 +196,13 @@ html, body{
     
 }
 
+//--------------------- PUB SECTION ----------------------
+
+.pub{
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
 //-------------------- MODAL -----------------------------
 #mapModal{
     font-weight: bold;
@@ -201,7 +214,7 @@ html, body{
         height: 80vh;
     }
 }
-
+//------------------- NG - REPEAT ANIMATION --------------
 .cardAnimation{
     &.ng-enter { 
         @include animation(enter 600ms cubic-bezier(0.445, 0.050, 0.550, 0.950));

@@ -1,0 +1,6 @@
+Options +FollowSymLinks
+
+RewriteEngine On
+RewriteBase /
+RewriteRule ^beer/(.*)$ beer.php?q=$1 [L]
+RewriteRule ^pub/(.*)$ pub.php?q=$1 [L]

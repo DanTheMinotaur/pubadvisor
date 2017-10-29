@@ -19,13 +19,13 @@ function initMap() {
       map: map,
       title: 'My position',
       draggable: true,
-      icon: 'images/icon.png'
+      icon: '/images/icon.png'
     });
     marker.addListener('dragend', function(){
         markers[0].setMap(null);
     });
     //ADD MARKER TO THE MAP FUNCTION
-    addMarker(drunkenFish, map, "Drunken Fekin Fish", 'images/rnd_map_icon.png');
+    addMarker(drunkenFish, map, "Drunken Fekin Fish", '/images/rnd_map_icon.png');
     function addMarker(_position, _map, _title, _icon){
         let temp = 
         new google.maps.Marker({
@@ -48,6 +48,16 @@ $('.searchField').focus(function (e) {
 $('.searchField').blur(function (e) { 
     e.preventDefault();
     $('.searchWrap').removeClass('active');
+});
+//listener when avatar is clicked go to admin page
+$('.avatar').click(function (e) { 
+    e.preventDefault();
+    window.location = '/admin';
+});
+
+$('.pa-logo img').click(function (e) { 
+    e.preventDefault();
+    window.location = '/';
 });
 
 //this function fixing issue of map on bootstrap modal by triggering map resize whenever modal is loaded
