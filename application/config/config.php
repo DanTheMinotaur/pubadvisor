@@ -35,6 +35,7 @@ $config['base_url'] = 'http://localhost';
 | variable so that it is blank.
 |
 */
+// Removed index.php so that pages do not need to be appended with index.php
 $config['index_page'] = '';
 
 /*
