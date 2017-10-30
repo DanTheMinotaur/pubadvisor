@@ -1,0 +1,69 @@
+@import "compass";
+//------------- LOADER SCREEN ---------
+.pace {
+    pointer-events: none;
+    @include user-select(none);
+    z-index: 2000;
+    position: fixed;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    background: #E8C300;
+    overflow: hidden;
+    &.pace-inactive {
+        display: none;
+    }
+}
+
+//---------LOADER LOGO-------------------
+.pacelogo {
+    position: fixed;
+    width: 180px;
+    height: 180px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 9999;
+    pointer-events: none;
+    @include animation(ball 1s infinite);
+    &.out {
+        @include transition(all .3s ease-in-out);
+        opacity: 0;
+    }
+    img {
+        width: 100px;
+        display: block;
+    }
+}
+
+//-------------- WRAPPER OF PAGE TO SHOW AFTER LOADING -----
+.pacewrap {
+    @include transition(opacity .3s ease-in-out);
+}
+
+:not(.pace-done) .pacewrap {
+    opacity: 0;
+}
+
+.pace-done .pacewrap {
+    opacity: 1;
+}
+
+//----------------- LOADER LOGO ANIMATION ------------
+@keyframes ball {
+    0%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(-20px);
+    }
+    100%{
+        transform: translateY(0);
+    }
+  }

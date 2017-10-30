@@ -1,0 +1,244 @@
+//compass import for components and mixins
+@import "compass";
+//fonts import, full compatibility mode :)
+@font-face {
+    font-family: 'pan';
+    src: url('../fonts/regular.woff') format('woff'),
+         url('../fonts/regular.ttf') format('truetype');
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'pan';
+    src: url('../fonts/bold.woff') format('woff'),
+         url('../fonts/bold.ttf') format('truetype');
+    font-weight: bold;
+}
+//global colors
+$color_primary: #E8C300;
+$dark_text: #414141;
+$white_text: #FFFFFF;
+$light_grey: #EEEEEE;
+
+//bootstrap breakpoints
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+
+//--------------------------BODY------------------------------------
+html, body{
+    background-color: $light_grey;
+    font-family: 'pan';
+    color: $dark_text;
+}
+
+//--------------------------TOP SECTION------------------------------------
+.top{
+    .pa-logo{
+        img{
+            cursor: pointer;
+        }
+    }
+    background-image: url(../images/top_bg.jpg);
+    background-position: center;
+    color: $white_text;
+    height: 240px;
+    //we hiding the top section for mobiles and replace with foldable navbar
+    @media screen and (max-width: $md){
+        display: none;
+    }
+    .icons {
+        font-size: 44px;
+        .locationIcon{
+            svg{
+                cursor: pointer;
+                height: 44px;
+                &:hover path{
+                    fill: $color_primary;
+                }
+                path{
+                    fill: $light_grey;
+                }
+            }
+        }
+    }
+    .avatar{
+        float: right;
+        width:70px;
+        height: 70px;
+        border-radius: 50%;
+        border: solid 3px $color_primary;
+        background-image: url('../images/avatar.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        cursor: pointer;
+    }
+    .searchWrap{
+        margin-top: 30px;
+        border: solid 3px $light_grey;
+        border-radius: 10px;
+        @include transition(border-color .6s ease);
+        &.active{
+            border-color: $color_primary;
+        }
+        .searchField{
+            height: 56px;
+            width: 100%;
+            background-color: transparent;
+            border: none;
+            border-radius: 8px;
+            color: $white_text;
+            font-size: 26px;
+            padding: 14px;
+            caret-color: rgba($color: $white_text, $alpha: 0.6);
+            @include transition(border .6s ease);
+            &:focus{
+                outline: none !important;
+                box-shadow: none !important;
+            }
+        }
+        .searchBtn{
+            font-size: 26px;
+            height: 56px;
+            color: $light_grey;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            &:hover{
+                color: $color_primary;
+            }
+            &:focus{
+                outline: none !important;
+                box-shadow: none !important;
+            }
+        }
+    }
+}
+//-------------------CATEGORY, ORDER BY SECTION------------------------------------
+.selection{
+    margin-top: 30px;
+    margin-bottom: 50px;
+    select{
+        outline: none;
+        option{
+            font-weight: bold;
+            color: $dark_text !important;
+        }
+        height: 48px;
+        border-radius: 4px;
+        border-color: $color_primary;
+        border-width: 2px;
+        @include appearance(none);
+        background: #F7F7F7 url('../images/arr_down.png') 88% center no-repeat;
+        @media screen and (max-width: $lg){
+            background: #F7F7F7 url('../images/arr_down.png') 96% center no-repeat;
+            background-size: 22px;
+        }
+        background-size: 22px;
+        padding: 0 24px;
+        font-size: 22px;
+        font-weight: bold;
+        width: 100%;
+        &:focus{
+            outline: none;
+        }
+        &[name=sortby] {
+            float: right;
+        }
+    }
+}
+//--------------------------RESULTS SECTION------------------------------------
+.results{
+    display: none;
+    .result{
+        margin: 50px 0;
+        background-color: $color_primary;
+        padding-top: 54px;
+        padding-bottom: 14px;
+        border-radius: 14px;
+        position: relative;
+        cursor: pointer;
+        @include transition(all .3s);
+        &:hover{
+            @include transform(scale(1.08));
+            @include box-shadow(0px 0px 5px 2px rgba(0,0,0,0.2));
+        }
+        h1{
+            font-weight: bold;
+            font-size: 35px;
+        }
+        h3{
+            font-weight: bold;
+            font-size: 20px;
+            color: $white_text;
+            margin:0 !important;
+            padding:0 !important;
+        }
+        .logoWrapper{
+            top:-54px; right:0; left:0;
+            margin: auto;
+            position: absolute;
+            background-color: $color_primary;
+            border-radius: 50%;
+            width: 108px;
+            height: 108px;
+            .logo{
+                width: 100px;
+                height: 100px;
+                margin: 4px 4px;
+                border-radius: 50%;
+                background: $white_text center no-repeat;
+                background-size: 100%;
+            }
+        }
+        
+    }
+    
+}
+
+//--------------------- DYNAMIC PAGE STYLING ----------------------
+
+.dynamic_page{
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+//-------------------- MODAL -----------------------------
+#mapModal{
+    font-weight: bold;
+    .modal-title{
+        font-weight: bold !important;
+    }
+    #map{
+        width: 100%;
+        height: 80vh;
+    }
+}
+//------------------- NG - REPEAT ANIMATION --------------
+.cardAnimation{
+    &.ng-enter { 
+        @include animation(enter 600ms cubic-bezier(0.445, 0.050, 0.550, 0.950));
+        display: block;
+        position: relative;
+    } 
+    &.ng-leave { 
+        @include animation(leave 600ms cubic-bezier(0.445, 0.050, 0.550, 0.950));
+        display: block;
+        position: relative;
+    } 
+}
+
+@include keyframes(enter)
+{
+    from{ opacity: 0; height: 0px; left: -70px; }
+    75%{ left: 15px; }
+    to { opacity: 1; height: 260px; left: 0px; }
+}
+
+@include keyframes(leave)
+{
+    to{ opacity: 0; height: 0px; left: -70px; }
+    25%{ left: 15px; }
+    from{ opacity: 1; height: 260px; left: 0px; }
+}
