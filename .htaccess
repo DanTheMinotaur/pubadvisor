@@ -1,7 +1,0 @@
-Options +FollowSymLinks
-ErrorDocument 404 /404.php
-RewriteEngine On
-RewriteBase /
-RewriteRule ^beer/(.*)$ beer.php?q=$1 [L]
-RewriteRule ^pub/(.*)$ pub.php?q=$1 [L]
-RewriteRule ^admin$ admin.php [L]
