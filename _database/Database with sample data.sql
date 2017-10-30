@@ -85,6 +85,7 @@ VALUES ('Lagoona Bar', 'Unit 4, Custom House Square, Mayor Street Lower, North D
 ('Chaplins', '1-2 Hawkins St, Dublin 2, D02 K590', '53.3461105,-6.2593373', 7, LOCALTIMESTAMP,(select pubcatid from pubcategories where catid in (select catid from categories where name = 'PUBLIC HOUSE'))),
 ('Howl at the moon', '54-, 74 Merrion Square S, Dublin', '53.3391773,-6.2476444', 7, LOCALTIMESTAMP,(select pubcatid from pubcategories where catid in (select catid from categories where name = 'NIGHTCLUB')));
 
+
 INSERT INTO Product(name, percentage, country_of_origin, quantity, ProdCatID)
 VALUES ('O Brother, The Chancer', 5.4, 'Ireland', 500, (select prodcatid from productcategories where catid in(select catid from categories where name = 'CRAFT BEER'))),
 ('St Bernardus, ABT', 10, 'Belgium', 330,(select prodcatid from productcategories where catid in(select catid from categories where name = 'CRAFT BEER'))),

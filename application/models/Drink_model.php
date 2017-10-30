@@ -15,5 +15,18 @@ class Drink_model extends CI_Model {
         $this->load->database();
     }
 
+    public function getalldrinks() {
 
+        $this->db->select('name, percentage, country_of_origin');
+        $this->db->from('product');
+        $this->db->order_by('name');
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return 0;
+        }
+    }
 }
