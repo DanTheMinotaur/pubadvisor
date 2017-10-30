@@ -2,4 +2,4 @@
 
 --SELECT prod.name, prod.percentage, prod.country_of_origin, pub.price FROM product prod;
 
-SELECT * FROM product;
+SELECT * FROM pub;

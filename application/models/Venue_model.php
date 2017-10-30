@@ -3,11 +3,10 @@
  * Created by PhpStorm.
  * User: Daniel
  * Date: 30/10/2017
- * Time: 18:36
+ * Time: 19:42
  */
-
-# Inherit properties and methods from CodeIgniter Models
-class Drink_model extends CI_Model {
+// Class for getting information on Venues
+class Venue_model extends CI_Model {
     # Create DB Connection based on connection settings
     function __construct() {
         # Inherit parent class constructor, for access to methods and properties for DB
@@ -15,15 +14,12 @@ class Drink_model extends CI_Model {
         $this->load->database();
     }
 
-    public function getalldrinks() {
-        // Query Database
-        $this->db->select('name, percentage, country_of_origin');
-        $this->db->from('product');
-        $this->db->order_by('name');
+    function getallvenues() {
+        $this->db->select('name, address, location, hours');
+        $this->db->from('pub');
 
         $query = $this->db->get();
 
-        // Return query results to function call
         if($query->num_rows() > 0) {
             return $query->result_array();
         } else {
