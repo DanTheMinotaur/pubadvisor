@@ -1,64 +1,62 @@
 <?php include 'includes/header.php' ?>
-</head>
 
-<body ng-app="paSearch" ng-controller="searchCtrl">
+<body>
 
   <?php include 'includes/top.php' ?>
 
   <!--BEER INFO-->
-  <section class="results">
-    <div class="container">
 
-      <section class="pub">
-        <?php 
+
+  <section class="dynamic_page">
+    <div class="container">
+      <?php 
         //echo "<p>" . $_GET['q'] . "</p>";    //this page is getting get parameter q with name according which you gonna create template
         ?>
 
-        <div class="row align-items-center">
-          <div class="col-sm-2">
-            <img src="/images/heineken.svg" alt="logo" width="200">
-          </div>
-          <div class="col-sm-10">
-            <h1>Heineken</h1>
-            <p>5% alc</p>
-            <p>Lager</p>
-            <p>Netherlands</p>
-          </div>
+      <div class="row align-items-center">
+        <div class="col-sm-4 col-lg-2">
+          <img src="/images/heineken.svg" alt="logo" width="200">
         </div>
-        <div class="col-sm-12">
-          <table class="table table-dark table-striped">
-            <thead>
-              <tr>
-                <th scope="col">Price</th>
-                <th scope="col">Venue</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>4.95</td>
-                <td>
-                  <a href="/pub/drunken-fish">Drunken Fish</a>
-                </td>
-              </tr>
-              <tr>
-                <td>4.95</td>
-                <td>
-                  <a href="/pub/drunken-fish">Drunken Fish</a>
-                </td>
-              </tr>
-              <tr>
-                <td>4.95</td>
-                <td>
-                  <a href="/pub/drunken-fish">Drunken Fish</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="col-sm-8 col-lg-10">
+          <h1>Heineken</h1>
+          <p>5% alc</p>
+          <p>Lager</p>
+          <p>Netherlands</p>
         </div>
-      </section>
-    </div>
+      </div>
+      <div class="col-sm-12">
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Price</th>
+              <th scope="col">Venue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>4.95</td>
+              <td>
+                <a href="/pub/drunken-fish">Drunken Fish</a>
+              </td>
+            </tr>
+            <tr>
+              <td>4.95</td>
+              <td>
+                <a href="/pub/drunken-fish">Drunken Fish</a>
+              </td>
+            </tr>
+            <tr>
+              <td>4.95</td>
+              <td>
+                <a href="/pub/drunken-fish">Drunken Fish</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
+
 
   <!-- MAP MODAL -->
   <div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel" aria-hidden="true">

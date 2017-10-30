@@ -1,65 +1,64 @@
 <?php include 'includes/header.php' ?>
-</head>
 
-<body ng-app="paSearch" ng-controller="searchCtrl">
+<body>
 
     <?php include 'includes/top.php' ?>
 
-    <!--BEER INFO-->
-    <section class="results">
+    <!--PUB INFO-->
+    <section class="dynamic_page">
         <div class="container">
 
-            <section class="pub">
-                <?php 
+
+            <?php 
         //echo "<p>" . $_GET['q'] . "</p>";    //this page is getting get parameter q with name according which you gonna create template
         ?>
 
-                <div class="row align-items-center">
-                    <div class="col-sm-2">
-                        <img src="/images/drunken_fish.png" alt="logo">
-                    </div>
-                    <div class="col-sm-10">
-                        <h1>Drunken Fish</h1>
-                        <p>IFSC, Dublin 1</p>
-                    </div>
+            <div class="row align-items-center">
+                <div class="col-sm-4 col-lg-2">
+                    <img src="/images/drunken_fish.png" alt="logo">
                 </div>
-                <div class="col-sm-12">
-                    <table class="table table-dark table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">Drink</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Type</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <a href="/beer/heineken">Heineken</a>
-                                </td>
-                                <td>4.95</td>
-                                <td>Lager</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="/beer/heineken">Heineken</a>
-                                </td>
-                                <td>4.95</td>
-                                <td>Lager</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="/beer/heineken">Heineken</a>
-                                </td>
-                                <td>4.95</td>
-                                <td>Lager</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="col-sm-8 col-lg-10">
+                    <h1>Drunken Fish</h1>
+                    <p>IFSC, Dublin 1</p>
                 </div>
-            </section>
+            </div>
+            <div class="col-sm-12">
+                <table class="table table-dark table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Beer</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href="/beer/heineken">Heineken</a>
+                            </td>
+                            <td>4.95</td>
+                            <td>Lager</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="/beer/heineken">Heineken</a>
+                            </td>
+                            <td>4.95</td>
+                            <td>Lager</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="/beer/heineken">Heineken</a>
+                            </td>
+                            <td>4.95</td>
+                            <td>Lager</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
-        </div>
+
     </section>
 
     <!-- MAP MODAL -->

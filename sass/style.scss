@@ -150,6 +150,7 @@ html, body{
 }
 //--------------------------RESULTS SECTION------------------------------------
 .results{
+    display: none;
     .result{
         margin: 50px 0;
         background-color: $color_primary;
@@ -196,9 +197,9 @@ html, body{
     
 }
 
-//--------------------- PUB SECTION ----------------------
+//--------------------- DYNAMIC PAGE STYLING ----------------------
 
-.pub{
+.dynamic_page{
     margin-top: 60px;
     margin-bottom: 60px;
 }
