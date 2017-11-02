@@ -14,7 +14,7 @@ class Venue_model extends CI_Model {
         $this->load->database();
     }
 
-    function getallvenues() {
+    function getAllVenues() {
         $this->db->select('name, address, location, hours');
         $this->db->from('pub');
 

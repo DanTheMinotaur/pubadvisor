@@ -17,7 +17,7 @@ class Venue extends REST_Controller {
     public function index_get() {
         $this->load->model('venue_model');
 
-        $all_venues = $this->venue_model->getallvenues();
+        $all_venues = $this->venue_model->getAllVenues();
 
         if($all_venues) {
             $this->response($all_venues, 200);

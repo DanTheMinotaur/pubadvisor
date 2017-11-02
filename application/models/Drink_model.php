@@ -15,7 +15,7 @@ class Drink_model extends CI_Model {
         $this->load->database();
     }
 
-    public function getalldrinks() {
+    public function getAllDrinks() {
         // Query Database
         $this->db->select('name, percentage, country_of_origin');
         $this->db->from('product');
@@ -30,4 +30,12 @@ class Drink_model extends CI_Model {
             return 0;
         }
     }
+
+    /* Will do later need to figure out how to sort by name and check what way DB relates to prices
+    public function getDrinkByName($name) { // getDrinkPricesByName
+        $this->db->select();
+    }
+    */
+
+
 }

@@ -20,7 +20,7 @@ class Drink extends REST_Controller {
         // check out is it better to load the models in constructor or the methods???
         $this->load->model('drink_model');
         // Gets drink model defined in models folder which then gets results from DB
-        $result = $this->drink_model->getalldrinks();
+        $result = $this->drink_model->getAllDrinks();
 
         // Checks if we have the result and returns the http status 200 if not a 404
         if($result) {
@@ -32,10 +32,12 @@ class Drink extends REST_Controller {
 
     function drinkByName_get() {
 
-        $drink_name = $this->get('drink_name');
+        $drink_name = $this->get('name');
 
         if(!$drink_name) {
             $this->response('No Drink Specified, why would you do that?', 400);
+        } else {
+            //$drink_details =
         }
         // CONTINUE HERE -- Had to stop because think DB needs more info such as
         // URL Slug for drinks, probably implement this in admin panel so drink name automatically gets slugged
