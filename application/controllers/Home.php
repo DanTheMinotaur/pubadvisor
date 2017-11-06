@@ -10,5 +10,7 @@
 class Home extends CI_Controller {
     public function index() {
         $this->load->view('home');
+        // This is for static files and root directory
+        $this->load->helper('url');
     }
 }

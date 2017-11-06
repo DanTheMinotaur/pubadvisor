@@ -59,20 +59,20 @@
         return emailReg.test( $email );
     }
 </script>
-<!--
+
 <script type="text/javascript">
     $(function() {
         $("#login-submit").click(function(){
             if($("#username").val() != "" && $("#password1").val() != "" && validateEmail($("#username").val())){
                 $.ajax({
                     method: "POST",
-                    url: "<?=loginfile?>",
+                    url: "http://localhost/PubAdvisor/api/login",
                     data: { username: $("#username").val(), password: $("#password1").val() }
                 }).done(function( msg ) {
                     if(msg !== ""){
-                        alert(msg);
+                        console.log(msg);
                     }else{
-                        window.location = "<?=userfile?>";
+                        window.location = "Helo";
                     }
                 });
             }else{
@@ -81,5 +81,4 @@
         });
     });
 </script>
--->
 </html>

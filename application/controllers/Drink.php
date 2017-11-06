@@ -44,4 +44,19 @@ class Drink extends REST_Controller {
         // Image location
         // Need to figure out how angualr handles the images.
     }
+
+    function drinkByID_get() {
+        $drink_id = $this->get('id');
+        $this->load->model('drink_model');
+        if(!$drink_id) {
+            $this->response('No ID specified.', 400);
+        } else {
+            $result = $this->drink_model->getDrinkByID($drink_id);
+            if($result) {
+                $this->response($result, 200);
+            } else {
+                $this->response("Invalid ID", 400);
+            }
+        }
+    }
 }

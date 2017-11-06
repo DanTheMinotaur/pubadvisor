@@ -44,4 +44,24 @@ class Api extends REST_Controller {
             $this->response("No Results Found", 404);
         }
     }
+
+
+
+    public function login_post() {
+        // Loads the views/login.php template
+        $this->load->view('login');
+        $email = $this->input->post("username");
+        $password = $this->input->post("password");
+
+        // Checks if either email or pwd are empty
+        if(!$email || !$password) {
+            $this->response("Enter a valid username and password", 400);
+        } else {
+            // Loads the Login Model e.g. DB access
+            $this->load->model('login_model');
+            // Returns the accounts details as JSON string with status code 200
+            // TODO Hashing
+            $this->response($this->login_model->getAdminUserDetails($email, $password), 200);
+        }
+    }
 }

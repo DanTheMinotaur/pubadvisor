@@ -30,12 +30,20 @@ class Drink_model extends CI_Model {
             return 0;
         }
     }
+    
+    public function getDrinkByID($id) {
+        $this->db->select('product.productid, product.name, product.country_of_origin, product.percentage, categories.name AS type');
+        $this->db->from('product');
+        $this->db->join('productcategories', 'product.prodcatid = productcategories.prodcatid', 'inner');
+        $this->db->join('categories', 'categories.catid = productcategories.catid', 'inner');
+        $this->db->where("product.productid = $id");
 
-    /* Will do later need to figure out how to sort by name and check what way DB relates to prices
-    public function getDrinkByName($name) { // getDrinkPricesByName
-        $this->db->select();
+        $results = $this->db->get();
+
+        if($results->num_rows() > 0) {
+            return $results->result_array();
+        } else {
+            return 'No matches found';
+        }
     }
-    */
-
-
 }

@@ -6,9 +6,7 @@
  * Time: 18:03
  */
 
-require(APPPATH.'/libraries/REST_Controller.php');
-
-class Admin extends REST_Controller {
+class Admin extends CI_Controller {
     function __construct() {
         parent::__construct();
         //$this->load->models('login_model');
@@ -20,6 +18,11 @@ class Admin extends REST_Controller {
         $this->load->view('admin');
     }
 
+    public function login() {
+        $this->load->view('login');
+    }
+
+    /*
     public function login_post() {
         // Loads the views/login.php template
         $this->load->view('login');
@@ -37,4 +40,5 @@ class Admin extends REST_Controller {
             $this->response($this->login_model->getAdminUserDetails($email, $password), 200);
         }
     }
+    */
 }
