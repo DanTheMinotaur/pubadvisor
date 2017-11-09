@@ -24,13 +24,13 @@ function initMap() {
       map: map,
       title: 'My position',
       draggable: true,
-      icon: '/images/icon.png'
+      icon: 'images/icon.png'
     });
     marker.addListener('dragend', function(){
         markers[0].setMap(null);
     });
     //ADD MARKER TO THE MAP FUNCTION
-    addMarker(drunkenFish, map, "Drunken Fekin Fish", '/images/rnd_map_icon.png');
+    addMarker(drunkenFish, map, "Drunken Fekin Fish", 'images/rnd_map_icon.png');
     function addMarker(_position, _map, _title, _icon){
         let temp = 
         new google.maps.Marker({

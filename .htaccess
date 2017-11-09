@@ -1,7 +1,15 @@
 Options +FollowSymLinks
 ErrorDocument 404 /404.php
+# This is for Codeignitor, the detault behaviour add index.php in front off all links
+# To stop this we need mod_rewrite enabled
+# https://stackoverflow.com/questions/19183311/codeigniter-removing-index-php-from-url
 RewriteEngine On
-RewriteBase /
-RewriteRule ^beer/(.*)$ beer.php?q=$1 [L]
-RewriteRule ^pub/(.*)$ pub.php?q=$1 [L]
-RewriteRule ^admin$ admin.php [L]
+RewriteCond $1 !^(index\.php|resources|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+# These were causing it to loop back to xampp dev index page.
+#RewriteBase /
+#RewriteRule ^beer/(.*)$ beer.php?q=$1 [L]
+#RewriteRule ^pub/(.*)$ pub.php?q=$1 [L]
+#RewriteRule ^admin$ admin.php [L]
