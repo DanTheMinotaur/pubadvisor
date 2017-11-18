@@ -294,3 +294,28 @@ select pb.pubid
 ,pbprod.pubprodid
 from pubproducts pbprod
 join pub pb on pbprod.pubid = pb.pubid;
+
+--latest ones
+--top part of drink page - Heineken example
+select prod.productid
+,prod.name
+,prod.percentage
+,prod.country_of_origin
+,prod.prodcatid
+,c.name
+from product prod
+join productcategories pc on prod.prodcatid = pc.prodcatid
+join categories c on pc.catid = c.catid
+where prod.name = 'Heineken';
+
+--table on bottom of drink page - Heineken example
+select pbprod.price
+,pb.name
+,c.name
+from pubproducts pbprod
+join pub pb on pbprod.pubid = pb.pubid
+join pubcategories pbc on pb.pubcatid = pbc.pubcatid
+join categories c on pbc.catid = c.catid
+join product prod on pbprod.productid = prod.productid 
+where prod.name = 'Heineken';
+
