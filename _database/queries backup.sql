@@ -250,63 +250,37 @@ VALUES --Lagoona bar products
 (7.50, (select PubID from Pub where name = 'Against the grain'),(select ProductId from Product where name = 'Jack Daniels'), LOCALTIMESTAMP),
 (8.00, (select PubID from Pub where name = 'Against the grain'),(select ProductId from Product where name = 'Budweiser'), LOCALTIMESTAMP);
 
+--images sample
+ALTER TABLE product ADD COLUMN img_url text;
+
+UPDATE PRODUCT
+SET img_url = 'C:\Users\lenovo\Downloads\heineken.svg';
+
 --queries
---Heineken page - price, percentage, drink name, pubs which sell it, country_of_origin, type, logo (need to create new table to store these logos)
 select prod.productid
 ,prod.name
 ,prod.percentage
 ,prod.country_of_origin
-,pbprod.price
-,pbprod.pubid
+,prod.prodcatid
+,prod.img_url
+,c.name
 from product prod
-join pubproducts pbprod on prod.productid = pbprod.productid
+join productcategories pc on prod.prodcatid = pc.prodcatid
+join categories c on pc.catid = c.catid
 where prod.name = 'Heineken';
 
---product and pubproducts table joined with all columns
-select * from pubproducts pb
-join product pr on pb.productid = pr.productid;
-
---all drinks 
-Select prod.productid
-,prod.name
-,prod.percentage
-,prod.country_of_origin
-,pbprod.price
-,pbprod.pubid
-from pubproducts pbprod
-join product prod on pbprod.productid = prod.productid;
-
---Lagoona Bar page - pub name, address, product id, prices
-select pb.pubid
-,pb.name
-,pb.address
-,pbprod.price
-,pbprod.pubprodid
-from pubproducts pbprod
-join pub pb on pbprod.pubid = pb.pubid
-where pb.name = 'Lagoona Bar';
-
---all pubs
-select pb.pubid
-,pb.name
-,pb.address
-,pbprod.price
-,pbprod.pubprodid
-from pubproducts pbprod
-join pub pb on pbprod.pubid = pb.pubid;
-
---latest ones
 --top part of drink page - Heineken example
 select prod.productid
 ,prod.name
 ,prod.percentage
 ,prod.country_of_origin
 ,prod.prodcatid
+,prod.img_url
 ,c.name
 from product prod
 join productcategories pc on prod.prodcatid = pc.prodcatid
 join categories c on pc.catid = c.catid
-where prod.name = 'Heineken';
+where prod.productid = 4;
 
 --table on bottom of drink page - Heineken example
 select pbprod.price
@@ -319,3 +293,14 @@ join categories c on pbc.catid = c.catid
 join product prod on pbprod.productid = prod.productid 
 where prod.name = 'Heineken';
 
+--table on bottom of drink page - Heineken example
+select pbprod.price
+,pb.name
+,pb.pubid
+,c.name
+from pubproducts pbprod
+join pub pb on pbprod.pubid = pb.pubid
+join pubcategories pbc on pb.pubcatid = pbc.pubcatid
+join categories c on pbc.catid = c.catid
+join product prod on pbprod.productid = prod.productid 
+where prod.productid = 4;
