@@ -26,4 +26,18 @@ class Venue_model extends CI_Model {
             return 0;
         }
     }
+
+    function getVenueByID($id) {
+        $this->db->select('name, address, location');
+        $this->db->from('pub');
+        $this->db->where("pubid = $id");
+
+        $result = $this->db->get();
+
+        if($result->num_rows() > 0) {
+            return $result->result_array();
+        } else {
+            return 'No matches found';
+        }
+    }
 }
