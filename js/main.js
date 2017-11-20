@@ -60,11 +60,12 @@ $('.avatar').click(function (e) {
     window.location = '/admin';
 });
 
+/* Removed this because it was causing the issue of going back to Apache Root
 $('.pa-logo img').click(function (e) { 
     e.preventDefault();
     window.location = '/';
 });
-
+*/
 //this function fixing issue of map on bootstrap modal by triggering map resize whenever modal is loaded
 $('#mapModal').on('shown.bs.modal', function () {
     google.maps.event.trigger(map, "resize");

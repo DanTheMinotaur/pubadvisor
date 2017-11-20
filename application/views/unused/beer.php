@@ -1,8 +1,5 @@
-<?php include 'includes/header.php' ?>
 
 <body>
-
-  <?php include 'includes/top.php' ?>
 
   <!--BEER INFO-->
 
@@ -15,7 +12,7 @@
 
       <div class="row align-items-center">
         <div class="col-sm-4 col-lg-2">
-          <img src="/images/heineken.svg" alt="logo" width="200">
+          <img src="<?php echo base_url() ?>images/heineken.svg" alt="logo" width="200">
         </div>
         <div class="col-sm-8 col-lg-10">
           <h1>Heineken</h1>

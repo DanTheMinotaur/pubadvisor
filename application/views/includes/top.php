@@ -21,9 +21,13 @@
         </div>
       </div>
       <!-- LOGO -->
-      <div class="col-xl-4 col-lg-5 col-md-6 pa-logo">
-        <img src="images/logo.svg" alt="logo" class="logo">
-      </div>
+
+          <div class="col-xl-4 col-lg-5 col-md-6 pa-logo">
+              <a href="<?php echo base_url() ?>">
+                    <img src="<?php echo base_url(); ?>images/logo.svg" alt="logo" class="logo">
+              </a>
+          </div>
+
       <!-- ADMIN AVATAR PLUS SMALL MENU -->
       <?php if(isset($_SESSION['logged']) && $_SESSION['logged']===true)
         {
