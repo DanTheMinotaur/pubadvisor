@@ -311,5 +311,17 @@ join productcategories pc on prod.prodcatid = pc.prodcatid
 join pub pb on pbprod.pubid = pb.pubid
 where pb.pubid = 1;
 
+--Type of product search results table
+select prod.name
+,pbprod.price
+,pb.address
+,pc.prodcatname
+,pc.description
+--,prod.prodcatid
+from productcategories pc
+join product prod on prod.prodcatid = pc.prodcatid
+join pubproducts pbprod on prod.productid = pbprod.productid
+join pub pb on pbprod.pubid = pb.pubid
+where pc.prodcatid = 4;
 
 
