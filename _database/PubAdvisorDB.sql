@@ -3,10 +3,10 @@ CREATE TABLE Pub (
 	name TEXT NOT NULL,
 	address TEXT NOT NULL,
 	location TEXT NOT NULL,
-	hours numeric NOT NULL,
+	hours numeric,
 	date_created TIMESTAMP NOT NULL,
-	PubCatID int NOT NULL,
-    img_url text,
+	PubCatID int,
+  image text,
 	CONSTRAINT Pub_pk PRIMARY KEY (PubID)
 );
 
@@ -16,8 +16,8 @@ CREATE TABLE Product (
 	name TEXT NOT NULL,
 	percentage numeric NOT NULL,
 	quantity numeric NOT NULL,
-	ProdCatID int NOT NULL,
-    img_url text,
+	ProdCatID int,
+  image text,
 	CONSTRAINT Product_pk PRIMARY KEY (ProductID)
 );
 
@@ -32,15 +32,16 @@ CREATE TABLE PubProducts (
 
 CREATE TABLE PubCategories (
 	PubCatID serial NOT NULL,
-    PubCatName name,
+  PubCatName name NOT NULL,
+  image text,
 	CONSTRAINT PubCategories_pk PRIMARY KEY (PubCatID)
 );
 
 CREATE TABLE ProductCategories (
 	ProdCatID serial NOT NULL,
-    ProdCatName name,
+    ProdCatName name NOT NULL,
     description text,
-    img_url text,
+    image text,
 	CONSTRAINT ProductCategories_pk PRIMARY KEY (ProdCatID)
 );
 
@@ -64,7 +65,7 @@ VALUES ('CRAFT PUB'),
 ('PUBLIC HOUSE'),
 ('NIGHTCLUB');
 
-INSERT INTO ProductCategories(prodcatname, description, img_url)
+INSERT INTO ProductCategories(prodcatname, description, image)
 VALUES ('CRAFT BEER','Pale ales and IPAs etc', 'C:\Users\lenovo\Downloads\heineken.svg'),
 ('BEER','Largers etc','C:\Users\lenovo\Downloads\heineken.svg'),
 ('SPIRITS','Spirits such as vodka, jack daniesl etc','C:\Users\lenovo\Downloads\heineken.svg'),
@@ -102,7 +103,7 @@ VALUES('MONDAY - FRIDAY','12:30PM -',' 02:00AM',(select pubid from pub where nam
 ('SATURDAY','12:30PM -',' 02:00AM',(select pubid from pub where name = 'Chaplins')),
 ('SUNDAY','12:30PM -',' 02:00AM',(select pubid from pub where name = 'Chaplins'));
 
-INSERT INTO Product(name, percentage, country_of_origin, quantity, img_url, ProdCatID)
+INSERT INTO Product(name, percentage, country_of_origin, quantity, image, ProdCatID)
 VALUES ('O Brother, The Chancer', 5.4, 'Ireland', 500, 'C:\Users\lenovo\Downloads\heineken.svg', (select prodcatid from productcategories where prodcatname = 'CRAFT BEER')),
 ('St Bernardus, ABT', 10, 'Belgium', 330, 'C:\Users\lenovo\Downloads\heineken.svg', (select prodcatid from productcategories where prodcatname = 'CRAFT BEER')),
 ('Brewdog, Vagabond', 4.5, 'Scotland', 330, 'C:\Users\lenovo\Downloads\heineken.svg', (select prodcatid from productcategories where prodcatname = 'CRAFT BEER')),
@@ -274,7 +275,7 @@ select prod.productid
 ,prod.percentage
 ,prod.country_of_origin
 ,prod.prodcatid
-,prod.img_url
+,prod.image
 ,pc.prodcatname
 from product prod
 join productcategories pc on prod.prodcatid = pc.prodcatid
@@ -296,7 +297,7 @@ select pb.name
 ,pb.address
 ,h.day
 ,h.opening_time || closing_time AS "Opening Hours"
-,pb.img_url
+,pb.image
 from pub pb
 join hours h on pb.pubid = h.pubid
 where pb.pubid = 1;
