@@ -29,9 +29,11 @@ INNER JOIN productcategories ON product.prodcatid = productcategories.prodcatid
 INNER JOIN categories ON productcategories.catid = categories.catid
 WHERE product.productid = 1;
 
-SELECT * FROM pub;
+SELECT * FROM categories;
 
 SELECT name, address, location FROM pub
 WHERE pubid = 1;
 
 SELECT * FROM pubcategories;
+
+SELECT * FROM categories;

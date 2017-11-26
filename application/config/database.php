@@ -73,6 +73,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+/*
+ * Daabase settings, admin is for post requests that will use CRUD operations
+ * */
+
 $db['default'] = array(
 	'dsn'	=> 'pgsql:host=localhost;port=5432;dbname=PubAdvisor;user=pubadvisor_user;password=test123',
 	'hostname' => 'localhost',
@@ -93,4 +97,26 @@ $db['default'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
+);
+
+$db['admin'] = array(
+    'dsn'	=> 'pgsql:host=localhost;port=5432;dbname=PubAdvisor;user=pubadvisor_admin;password=HelloWorld2468',
+    'hostname' => 'localhost',
+    'username' => 'pubadvisor_admin',
+    'password' => 'HelloWorld2468',
+    'database' => 'PubAdvisor',
+    'dbdriver' => 'pdo',
+    'dbprefix' => '',
+    'pconnect' => FALSE,
+    'db_debug' => (ENVIRONMENT !== 'production'),
+    'cache_on' => FALSE,
+    'cachedir' => '',
+    'char_set' => 'utf8',
+    'dbcollat' => 'utf8_general_ci',
+    'swap_pre' => '',
+    'encrypt' => FALSE,
+    'compress' => FALSE,
+    'stricton' => FALSE,
+    'failover' => array(),
+    'save_queries' => TRUE
 );
