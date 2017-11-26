@@ -14,8 +14,8 @@ class Venue_model extends CI_Model {
         $this->load->database();
     }
 
-    function getAllVenues() {
-        $this->db->select('name, address, location, hours');
+    function allVenues() {
+        $this->db->select('name, address, location, image');
         $this->db->from('pub');
 
         $query = $this->db->get();
@@ -27,10 +27,11 @@ class Venue_model extends CI_Model {
         }
     }
 
-    function getVenueByID($id) {
-        $this->db->select('name, address, location');
+    function venueByID($id) {
+        $this->db->select('pub.name, pub.address, pub.location, pub.image, pubcategories.pubcatname');
         $this->db->from('pub');
-        $this->db->where("pubid = $id");
+        $this->db->join('pubcategories', 'pub.pubcatid = pubcategories.pubcatid', 'inner');
+        $this->db->where("pub.pubid = $id");
 
         $result = $this->db->get();
 
