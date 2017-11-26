@@ -30,7 +30,7 @@ class Drink_model extends CI_Model {
             return 0;
         }
     }
-    
+
     public function getDrinkByID($id) {
         $this->db->select('product.productid, product.name, product.country_of_origin, product.percentage, categories.name AS type');
         $this->db->from('product');
@@ -38,10 +38,10 @@ class Drink_model extends CI_Model {
         $this->db->join('categories', 'categories.catid = productcategories.catid', 'inner');
         $this->db->where("product.productid = $id");
 
-        $results = $this->db->get();
+        $result = $this->db->get();
 
-        if($results->num_rows() > 0) {
-            return $results->result_array();
+        if($result->num_rows() > 0) {
+            return $result->result_array();
         } else {
             return 'No matches found';
         }

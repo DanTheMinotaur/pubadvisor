@@ -1,8 +1,5 @@
-<?php include 'includes/header.php' ?>
-
 <body>
 
-    <?php include 'includes/top.php' ?>
 
     <!--PUB INFO-->
     <section class="dynamic_page">
@@ -15,7 +12,7 @@
 
             <div class="row align-items-center">
                 <div class="col-sm-4 col-lg-2">
-                    <img src="/images/drunken_fish.png" alt="logo">
+                    <img src="<?php echo base_url(); ?>images/drunken_fish.png" alt="logo">
                 </div>
                 <div class="col-sm-8 col-lg-10">
                     <h1>Drunken Fish</h1>

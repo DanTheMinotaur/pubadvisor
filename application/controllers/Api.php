@@ -16,6 +16,10 @@ class Api extends REST_Controller {
         //$this->load->model('venue_model');
     }
 
+    /*
+     * Drink API calls
+     * */
+
     // Get all drinks API call
     // FYI CodeIgnitor recognises requests based on the end of the method, eg. _get, _post
     function allDrinks_get() {
@@ -32,6 +36,25 @@ class Api extends REST_Controller {
         }
     }
 
+    function drinkByID_get() {
+        $drink_id = $this->get('id');
+        $this->load->model('drink_model');
+        if(!$drink_id) {
+            $this->response('No ID specified.', 400);
+        } else {
+            $result = $this->drink_model->getDrinkByID($drink_id);
+            if($result) {
+                $this->response($result, 200);
+            } else {
+                $this->response("Invalid ID", 400);
+            }
+        }
+    }
+
+    /*
+     * Venue API calls
+     * */
+
     // Get all venues API call, works the same as allDrinks_get
     function allVenues_get() {
         $this->load->model('venue_model');
@@ -45,7 +68,26 @@ class Api extends REST_Controller {
         }
     }
 
+    function venueByID_get() {
+        $venue_id = $this->get('id');
+        $this->load->model('venue_model');
 
+        if(!$venue_id) {
+            $this->response('No ID Specified', 400);
+        } else {
+            $result = $this->venue_model->getVenueByID($venue_id);
+            if($result) {
+                $this->response($result, 200);
+            } else {
+                $this->response("Invalid ID", 400);
+            }
+        }
+    }
+
+    /*
+     * Administration API -- TODO move this to own APi
+     *
+     * */
 
     public function login_post() {
         // Loads the views/login.php template
