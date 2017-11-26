@@ -26,7 +26,7 @@ class Api extends REST_Controller {
         // check out is it better to load the models in constructor or the methods???
         $this->load->model('drink_model');
         // Gets drink model defined in models folder which then gets results from DB
-        $result = $this->drink_model->getalldrinks();
+        $result = $this->drink_model->allDrinks();
 
         // Checks if we have the result and returns the http status 200 if not a 404
         if($result) {
@@ -59,7 +59,7 @@ class Api extends REST_Controller {
     function allVenues_get() {
         $this->load->model('venue_model');
 
-        $all_venues = $this->venue_model->getallvenues();
+        $all_venues = $this->venue_model->allVenues();
 
         if($all_venues) {
             $this->response($all_venues, 200);
@@ -75,7 +75,7 @@ class Api extends REST_Controller {
         if(!$venue_id) {
             $this->response('No ID Specified', 400);
         } else {
-            $result = $this->venue_model->getVenueByID($venue_id);
+            $result = $this->venue_model->venueByID($venue_id);
             if($result) {
                 $this->response($result, 200);
             } else {
