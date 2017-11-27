@@ -1,0 +1,59 @@
+Use <?php echo base_url() ?> for beginining of API calls so that they change depending on host
+Tested on POSTMAN using x-www-form-urlencoded
+
+HTTP Method == POST
+
+Add Drink
+http://localhost/PubAdvisor/admin_api/addDrink
+keys -> name, percentage, country, country, cat_id, image
+
+Add Drink Category e.g. Larger, Pilsner
+http://localhost/PubAdvisor/admin_api/addDrinkCategory
+keys -> name, description, image
+
+Add Pub
+http://localhost/PubAdvisor/admin_api/addVenue
+keys -> name, address, location, pubcatid, image
+
+Add Pub Category
+http://localhost/PubAdvisor/admin_api/addVenueCategory
+keys -> name, image
+
+Add product to pub
+http://localhost/PubAdvisor/admin_api/addInventory
+keys -> price, pubid, productid
+
+HTTP Method == PUT
+
+Update Drink Details
+http://localhost/PubAdvisor/admin_api/updateDrink
+id, name, percentage, country, quantity, cat_id, image
+
+Update Pub Details
+http://localhost/PubAdvisor/admin_api/updateVenue
+id, name, address, location, image, pubcatid
+
+Update product details
+http://localhost/PubAdvisor/admin_api/updateInventory
+id, price, pubid, productid
+
+
+HTTP Method == DELETE
+
+Delete Drink
+http://localhost/PubAdvisor/admin_api/deleteDrink
+http://localhost/PubAdvisor/admin_api/deleteVenue
+http://localhost/PubAdvisor/admin_api/deleteDrinkCategory
+http://localhost/PubAdvisor/admin_api/deleteVenueCategory
+http://localhost/PubAdvisor/admin_api/deleteInventory
+key -> id
+
+HTTP Method == GET
+http://localhost/PubAdvisor/api/allDrinks
+http://localhost/PubAdvisor/api/allVenues
+http://localhost/PubAdvisor/api/drinkByID?id=
+http://localhost/PubAdvisor/api/venueByID?id=
+
+
+
+

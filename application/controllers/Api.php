@@ -11,9 +11,6 @@ require(APPPATH.'/libraries/REST_Controller.php');
 class Api extends REST_Controller {
     function __construct() {
         parent::__construct();
-        // No Point in loading each model when API is called
-        //$this->load->model('drink_model');
-        //$this->load->model('venue_model');
     }
 
     /*

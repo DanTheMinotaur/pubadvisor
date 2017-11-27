@@ -3,10 +3,10 @@ CREATE TABLE Pub (
 	name TEXT NOT NULL,
 	address TEXT NOT NULL,
 	location TEXT NOT NULL,
-	hours numeric,
-	date_created TIMESTAMP NOT NULL,
+	image TEXT,
+	date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	date_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	PubCatID int,
-  image text,
 	CONSTRAINT Pub_pk PRIMARY KEY (PubID)
 );
 
@@ -16,15 +16,18 @@ CREATE TABLE Product (
 	name TEXT NOT NULL,
 	percentage numeric NOT NULL,
 	quantity numeric NOT NULL,
+	image TEXT,
+	date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	date_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	ProdCatID int,
-  image text,
 	CONSTRAINT Product_pk PRIMARY KEY (ProductID)
 );
 
 CREATE TABLE PubProducts (
 	PubProdID serial NOT NULL,
 	price numeric NOT NULL,
-	date_created TIMESTAMP NOT NULL,
+	date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	date_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	PubID int NOT NULL,
 	ProductID int NOT NULL,
 	CONSTRAINT PubProducts_pk PRIMARY KEY (PubProdID)
