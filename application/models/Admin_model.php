@@ -7,21 +7,37 @@
  */
 
 class Admin_model extends CI_Model {
+    private $ADMIN_DB;
+
     function __construct() {
         parent::__construct();
         // Load admin SQL details
-        $this->load->database('admin', TRUE);
+        //$admin_db = $this->load->database('admin', TRUE);
+        $this->ADMIN_DB = $this->load->database('admin', TRUE);
     }
 
     function test() {
-        return 'working';
+        //$this->load->database('admin', TRUE);
+        if($this->admin_db->get('Product')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // Drinks
 
     function addDrink($data) {
+        //$DB = $this->load->database('admin', TRUE);
+        if($this->ADMIN_DB->insert('product', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-        if($this->db->insert('Product', $data)) {
+    function addDrinkCategory($data) {
+        if($this->ADMIN_DB->insert('productcategories', $data)) {
             return true;
         } else {
             return false;
