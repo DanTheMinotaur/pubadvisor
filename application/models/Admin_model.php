@@ -67,4 +67,40 @@ class Admin_model extends CI_Model {
             return false;
         }
     }
+
+    function updateDrink($id, $data) {
+        if($this->ADMIN_DB->where('productid', $id)){
+            if($this->ADMIN_DB->update('product', $data)){
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    function updateVenue($id, $data) {
+        if($this->ADMIN_DB->where('pubid', $id)){
+            if($this->ADMIN_DB->update('pub', $data)){
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    function updateInventory($id, $data) {
+        if($this->ADMIN_DB->where('pubprodid', $id)){
+            if($this->ADMIN_DB->update('pubproducts', $data)){
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }

@@ -125,4 +125,72 @@ class Admin_api extends REST_Controller {
         }
     }
 
+    function updateDrink_put(){
+        $drink_data = array(
+            'productid' => $this->put('id'),
+            'name' => $this->put('name'),
+            'percentage' => $this->put('percentage'),
+            'country_of_origin' => $this->put('country'),
+            'quantity' => $this->put('quantity'),
+            'prodcatid' => $this->put('cat_id'),
+            'image' => $this->put('image')
+        );
+
+        // Check and make sure that data is not empty
+        foreach($drink_data as $key => $data) {
+            if(!$data) {
+                $this->response("You missed $key, enter it... ya prick...", 400);
+            }
+        }
+
+        if($this->admin_model->updateDrink($drink_data['productid'], $drink_data)) {
+            $this->response('Drink Updated.', 200);
+        } else {
+            $this->response('Drink info could not be updated', 501);
+        }
+    }
+
+    function updateVenue_put() {
+        $venue_data = array(
+            'pubid' => $this->put('id'),
+            'name' => $this->put('name'),
+            'address' => $this->put('address'),
+            'location' => $this->put('location'),
+            'pubcatid' => $this->put('pubcatid'),
+            'image' => $this->put('image')
+        );
+
+        foreach($venue_data as $key => $data) {
+            if(!$data) {
+                $this->response("You missed $key, enter it... ya prick...", 400);
+            }
+        }
+
+        if($this->admin_model->updateVenue($venue_data['pubid'], $venue_data)) {
+            $this->response('Venue Updated', 200);
+        } else {
+            $this->response('Venue info could not be updated', 501);
+        }
+    }
+
+    function updateInventory_put() {
+        $inventory_data = array(
+            'pubprodid' => $this->put('id'),
+            'price' => $this->put('price'),
+            'pubid' => $this->put('pubid'),
+            'productid' => $this->put('productid')
+        );
+
+        foreach($inventory_data as $key => $data) {
+            if(!$data) {
+                $this->response("You missed $key, enter it... ya prick...", 400);
+            }
+        }
+
+        if($this->admin_model->updateInventory($inventory_data['pubprodid'], $inventory_data)) {
+            $this->response('Inventory Updated', 200);
+        } else {
+            $this->response('Inventory info could not be updated', 501);
+        }
+    }
 }
