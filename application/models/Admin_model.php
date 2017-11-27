@@ -43,4 +43,28 @@ class Admin_model extends CI_Model {
             return false;
         }
     }
+
+    function addVenue($data) {
+        if($this->ADMIN_DB->insert('pub', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function addVenueCategory($data) {
+        if($this->ADMIN_DB->insert('pubcategories', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function addInventory($data) {
+        if($this->ADMIN_DB->insert('pubproducts', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
