@@ -193,4 +193,75 @@ class Admin_api extends REST_Controller {
             $this->response('Inventory info could not be updated', 501);
         }
     }
+
+    // TODO handle Foreign key constraint in DB
+    function deleteDrink_delete() {
+        $id = $this->delete('id');
+
+        if(!$id) {
+            $this->response("ID missing.", 404);
+        } else {
+            if($this->admin_model->deleteDrink($id)) {
+                $this->response('Drink Deleted', 200);
+            } else {
+                $this->response('Unable to Delete from Database', 501);
+            }
+        }
+    }
+
+    function deleteInventory_delete() {
+        $id = $this->delete('id');
+
+        if(!$id) {
+            $this->response('ID Missing', 404);
+        } else {
+            if($this->admin_model->deleteInventory($id)) {
+                $this->response('Inventory Item deleted', 200);
+            } else {
+                $this->response('Unable to delete item from inventory', 501);
+            }
+        }
+    }
+
+    function deleteVenue_delete() {
+        $id = $this->delete('id');
+
+        if(!$id) {
+            $this->response('ID Missing', 404);
+        } else {
+            if($this->admin_model->deleteVenue($id)) {
+                $this->response('Venue Deleted', 200);
+            } else {
+                $this->response('Unable to delete venue.', 501);
+            }
+        }
+    }
+
+    function deleteDrinkCategory_delete() {
+        $id = $this->delete('id');
+
+        if(!$id) {
+            $this->response('ID Missing', 404);
+        } else {
+            if($this->admin_model->deleteDrinkCategory($id)) {
+                $this->response('Category Deleted', 200);
+            } else {
+                $this->response('Unable to delete category', 501);
+            }
+        }
+    }
+
+    function deleteVenueCategory_delete() {
+        $id = $this->delete('id');
+
+        if(!$id) {
+            $this->response('ID Missing', 404);
+        } else {
+            if($this->admin_model->deleteVenueCategory($id)) {
+                $this->response('Category Deleted', 200);
+            } else {
+                $this->response('Unable to delete category', 501);
+            }
+        }
+    }
 }

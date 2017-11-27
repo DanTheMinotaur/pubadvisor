@@ -103,4 +103,40 @@ class Admin_model extends CI_Model {
             return false;
         }
     }
+
+    /*
+     * Helper function for deleting records from DB
+     * */
+
+    private function deleteRecord($id, $column_id_name, $table_name) {
+        if($this->ADMIN_DB->where($column_id_name, (int)$id)) {
+            if($this->ADMIN_DB->delete($table_name)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    function deleteDrink($id){
+        return $this->deleteRecord($id, 'productid', 'product');
+    }
+
+    function deleteInventory($id) {
+        return $this->deleteRecord($id, 'pubprodid', 'pubproducts');
+    }
+
+    function deleteVenue($id) {
+        return $this->deleteRecord($id, 'pubid', 'pub');
+    }
+
+    function deleteDrinkCategory($id) {
+        return $this->deleteRecord($id, 'productid', 'product');
+    }
+
+    function deleteVenueCategory($id) {
+        return $this->deleteRecord($id, 'pubcatid', 'pubcategories');
+    }
 }
