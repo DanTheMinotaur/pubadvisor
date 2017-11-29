@@ -13,13 +13,22 @@
 class Login_model extends CI_Model {
     function __construct() {
         parent::__construct();
-        $this->load->database();
+        $this->ADMIN_DB = $this->load->database('admin', TRUE);
+    }
+
+    function registerUser($user_data) {
+
+        if($this->ADMIN_DB->insert('admin_users', $user_data)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // Returns all user data of the admin user.
     function getAdminUserDetails($email, $password) {
         $sql = "SELECT * FROM admin_users WHERE email = '$email' AND password = '$password'";
-        $admin_user_data = $this->db->query($sql);
+        $admin_user_data = $this->ADMIN_DB->query($sql);
         return $admin_user_data->result_array();
     }
 }
