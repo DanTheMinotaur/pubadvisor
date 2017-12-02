@@ -2,11 +2,11 @@
 /**
  * Created by PhpStorm.
  * User: Daniel
- * Date: 02/11/2017
- * Time: 18:03
+ * Date: 02/12/2017
+ * Time: 14:35
  */
 
-class Admin extends CI_Controller {
+class Login extends CI_Controller {
     function __construct() {
         parent::__construct();
         // Load CI Library and Helper Classes
@@ -14,13 +14,11 @@ class Admin extends CI_Controller {
         $this->load->helper(array('form', 'url'));
     }
 
-
-    public function index() {
+    function index() {
         $this->load->view('register');
     }
 
     function register() {
-        print("working");
-        $this->load->view('register');
+        print("Register");
     }
 }

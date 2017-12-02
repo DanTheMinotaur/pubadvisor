@@ -10,8 +10,9 @@
 <h1>Registration</h1>
 <?php echo validation_errors(); ?>
 
-<?php echo form_open('admin/registration') ?>
+<?php echo form_open('login/register') ?>
 
+<!--<form method="post" action="<?php// echo base_url() ?>admin/register">-->
     <div class="form-group">
         <input type="text" class="form-control" name="name" placeholder="Name">
         <input type="email" class="form-control" name="email" placeholder="Email">
