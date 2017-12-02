@@ -16,15 +16,61 @@ class Admin_model extends CI_Model {
         $this->ADMIN_DB = $this->load->database('admin', TRUE);
     }
 
-    function test() {
-        //$this->load->database('admin', TRUE);
-        if($this->admin_db->get('Product')) {
+    // Function to register user
+    function registerUser($user_data) {
+        if($this->ADMIN_DB->insert('admin_users', $user_data)) {
             return true;
         } else {
             return false;
         }
     }
 
+    // Returns True if username exists
+    function checkUsernameExists($username) {
+        $this->ADMIN_DB->select('username');
+        $this->ADMIN_DB->from('admin_users');
+        $this->ADMIN_DB->where('username', $this->ADMIN_DB->escape($username));
+
+        $user = $this->ADMIN_DB->get();
+
+        if($user->num_rows() > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    // Returns True if the users email exists in the DB
+    function checkUserEmailExists($email) {
+        $this->ADMIN_DB->select('email');
+        $this->ADMIN_DB->from('admin_users');
+        $this->ADMIN_DB->where('email', $this->ADMIN_DB->escape($email));
+        $user = $this->ADMIN_DB->get();
+
+        if($user->num_rows() > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    function checkLogin($username, $password) {
+        $this->ADMIN_DB->select('*');
+        $this->ADMIN_DB->from('admin_users');
+        $this->ADMIN_DB->where('username', $this->ADMIN_DB->escape($username));
+
+        $query = $this->ADMIN_DB->get();
+
+        $user_data = $query->row_array();
+
+        print_r($user_data);
+
+        if(password_verify($password, $user_data['password'])){
+            return $user_data;
+        } else {
+            return FALSE;
+        }
+    }
     // Drinks
 
     function addDrink($data) {

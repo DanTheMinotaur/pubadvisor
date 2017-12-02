@@ -19,24 +19,58 @@ class Admin extends CI_Controller {
     }
 
     function login() {
-        print('login');
-        $this->load->view('login');
+
+        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+
+        if(!$this->form_validation->run()) {
+            $this->load->view('login');
+        } else {
+            print('login sent.');
+
+            $this->load->model('admin_model');
+        }
     }
 
     function register() {
-        $this->load->view('register');
+        //$this->load->view('register');
 
         $this->form_validation->set_rules('name', 'Name', 'required');
         $this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
 
+        // Loads register view
         if(!$this->form_validation->run()) {
-            print('need some data dude');
             $this->load->view('register');
         } else {
             print('validated');
-            $this->load->view('login');
+            //$this->load->view('login');
+
+            $this->load->model('admin_model');
+
+            $user_data = array(
+                'name' => $this->input->post('name'),
+                'username' => strtolower($this->input->post('username')),
+                'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
+                'email' => strtolower($this->input->post('email'))
+            );
+
+            if($this->admin_model->checkUserEmailExists($user_data['email'])) {
+                print('Email already Exists');
+                $this->load->view('register');
+            } elseif ($this->admin_model->checkUsernameExists($user_data['username'])) {
+                print('Username Already Exists');
+                $this->load->view('register');
+            } else {
+                if($this->admin_model->registerUser($user_data)) {
+                    print('User Craeted');
+                    $this->load->view('login');
+                } else {
+                    print('Could not create user');
+                    $this->load->view('register');
+                }
+            }
         }
     }
 }
