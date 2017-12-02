@@ -17,7 +17,7 @@ class Drink_model extends CI_Model {
 
     public function allDrinks() {
         // Query Database
-        $this->db->select('product.name, product.percentage, product.country_of_origin, product.quantity, product.image, productcategories.prodcatname AS type');
+        $this->db->select('product.productid AS id, product.name, product.percentage, product.country_of_origin, product.quantity, product.image, productcategories.prodcatname AS type');
         $this->db->from('product');
         $this->db->join('productcategories', 'product.prodcatid = productcategories.prodcatid', 'inner');
         $this->db->order_by('name');

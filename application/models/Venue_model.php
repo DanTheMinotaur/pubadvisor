@@ -15,7 +15,7 @@ class Venue_model extends CI_Model {
     }
 
     function allVenues() {
-        $this->db->select('name, address, location, image');
+        $this->db->select('pubid AS id, name, address, location, image');
         $this->db->from('pub');
 
         $query = $this->db->get();
