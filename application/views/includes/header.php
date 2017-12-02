@@ -6,6 +6,7 @@
   <title>Pub Advisor</title>
   <?php 
   //checking if page is main page and if yes applying loader script and styling
+  /*
   if($_SERVER['REQUEST_URI'] === '/' && !isset($_SESSION['loaded']))
   {
     $_SESSION['loaded'] = true;
@@ -18,6 +19,7 @@
     });
     </script>';
   }
+  */
   ?>
   <!-- Required meta tags -->
   <meta charset="utf-8">
