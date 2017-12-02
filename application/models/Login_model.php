@@ -24,11 +24,4 @@ class Login_model extends CI_Model {
             return false;
         }
     }
-
-    // Returns all user data of the admin user.
-    function getAdminUserDetails($email, $password) {
-        $sql = "SELECT * FROM admin_users WHERE email = '$email' AND password = '$password'";
-        $admin_user_data = $this->ADMIN_DB->query($sql);
-        return $admin_user_data->result_array();
-    }
 }
