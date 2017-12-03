@@ -29,7 +29,7 @@ class Admin_model extends CI_Model {
     function checkUsernameExists($username) {
         $this->ADMIN_DB->select('username');
         $this->ADMIN_DB->from('admin_users');
-        $this->ADMIN_DB->where('username', $this->ADMIN_DB->escape($username));
+        $this->ADMIN_DB->where('username', $username);
 
         $user = $this->ADMIN_DB->get();
 
@@ -55,20 +55,26 @@ class Admin_model extends CI_Model {
     }
 
     function verifyLogin($username, $password) {
-        $this->ADMIN_DB->select('username, password');
-        $this->ADMIN_DB->from('admin_users');
-        $this->ADMIN_DB->where('username', $username);
+        if($this->checkUsernameExists($username)) {
+            $this->ADMIN_DB->select('*');
+            $this->ADMIN_DB->from('admin_users');
+            $this->ADMIN_DB->where('username', $username);
 
-        $query = $this->ADMIN_DB->get();
+            $query = $this->ADMIN_DB->get();
 
-        $user_data = $query->row();
+            $user_data = $query->row();
 
-        if(password_verify($password, $user_data->password)){
-            return TRUE;
+            if(password_verify($password, $user_data->password)){
+                return $user_data;
+            } else {
+                return FALSE;
+            }
         } else {
             return FALSE;
         }
     }
+
+
 
 
     // Drinks
