@@ -150,7 +150,6 @@ html, body{
 }
 //--------------------------RESULTS SECTION------------------------------------
 .results{
-    display: none;
     .result{
         margin: 50px 0;
         background-color: $color_primary;
@@ -202,6 +201,12 @@ html, body{
 .dynamic_page{
     margin-top: 60px;
     margin-bottom: 60px;
+}
+
+//--------------------- DRINK PAGE STYLING ----------------------
+
+.table{
+    margin-top: 40px;
 }
 
 //-------------------- MODAL -----------------------------

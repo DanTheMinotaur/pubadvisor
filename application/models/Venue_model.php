@@ -15,7 +15,7 @@ class Venue_model extends CI_Model {
     }
 
     function allVenues() {
-        $this->db->select('name, address, location, image');
+        $this->db->select('pubid AS id, name, address, location, image');
         $this->db->from('pub');
 
         $query = $this->db->get();
@@ -33,12 +33,18 @@ class Venue_model extends CI_Model {
         $this->db->join('pubcategories', 'pub.pubcatid = pubcategories.pubcatid', 'inner');
         $this->db->where("pub.pubid = $id");
 
-        $result = $this->db->get();
+        $temp = $this->db->get();
 
-        if($result->num_rows() > 0) {
-            return $result->result_array();
+        if($temp->num_rows() > 0) {
+            $this->db->select("p.productid as id, p.name, pp.price, pc.prodcatname as type");
+            $this->db->from("product p, pubproducts pp, productcategories pc");
+            $this->db->where("p.prodcatid = pc.prodcatid and p.productid = pp.productid and pp.pubid = $id");
+            $this->db->order_by('p.name');
+            $prices = $this->db->get();
+            $results = array('info' => $temp->result_array(), 'prices' => $prices->result_array());
+            return $results;
         } else {
-            return 'No matches found';
+            return false;
         }
     }
 }
