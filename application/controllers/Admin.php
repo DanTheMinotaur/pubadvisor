@@ -9,18 +9,23 @@
 class Admin extends CI_Controller {
     function __construct() {
         parent::__construct();
-        $this->load->library('form_validation');
+        $this->load->library(array('form_validation', 'session'));
         $this->load->helper(array('form', 'url'));
     }
 
     function index() {
-        print("Hello");
+        if($this->session->logged_in) {
+
+        } else {
+            redirect('admin/login');
+        }
         $this->load->view('admin');
+        print($this->session->logged_in);
     }
 
     function login() {
 
-        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('username', 'Username', 'required|trim');
         $this->form_validation->set_rules('password', 'Password', 'required');
 
         if(!$this->form_validation->run()) {
@@ -29,6 +34,15 @@ class Admin extends CI_Controller {
             print('login sent.');
 
             $this->load->model('admin_model');
+
+            // Check if log in details are valid
+            if(!$this->admin_model->verifyLogin(strtolower($this->input->post('username')), $this->input->post('password'))) {
+                print('Invalid Username or Password');
+                $this->load->view('login');
+            } else {
+                $this->session->logged_in = TRUE;
+                redirect('admin');
+            }
         }
     }
 

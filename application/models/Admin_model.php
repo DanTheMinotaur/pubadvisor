@@ -54,23 +54,23 @@ class Admin_model extends CI_Model {
         }
     }
 
-    function checkLogin($username, $password) {
-        $this->ADMIN_DB->select('*');
+    function verifyLogin($username, $password) {
+        $this->ADMIN_DB->select('username, password');
         $this->ADMIN_DB->from('admin_users');
-        $this->ADMIN_DB->where('username', $this->ADMIN_DB->escape($username));
+        $this->ADMIN_DB->where('username', $username);
 
         $query = $this->ADMIN_DB->get();
 
-        $user_data = $query->row_array();
+        $user_data = $query->row();
 
-        print_r($user_data);
-
-        if(password_verify($password, $user_data['password'])){
-            return $user_data;
+        if(password_verify($password, $user_data->password)){
+            return TRUE;
         } else {
             return FALSE;
         }
     }
+
+
     // Drinks
 
     function addDrink($data) {

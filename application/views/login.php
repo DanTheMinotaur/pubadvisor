@@ -9,9 +9,9 @@
 <body>
 <div class="container">
 
-    <form id="login-form" method="post" role="form" style="display: block;">
+    <?php echo form_open('admin/login') ?>
         <div class="form-group">
-            <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Email" value="">
+            <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username">
         </div>
         <div class="form-group">
             <input type="password" name="password" id="password1" tabindex="2" class="form-control" placeholder="Password">
@@ -19,7 +19,7 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
-                    <input type="button" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                    <input type="submit" name="submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
                 </div>
             </div>
         </div>
