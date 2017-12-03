@@ -3,14 +3,8 @@ $_SESSION['logged'] = true; //setting session variable just to try to emulate th
 ?>
 
     <body ng-app="paSearch" ng-controller="searchCtrl">
-<?php
-//checking if page was previously loaded and if true it's hiding loader logo
-if(!isset($_SESSION['loaded_logo']))
-{
-    $_SESSION['loaded_logo'] = true;
-    echo '<div class="pacelogo"><img src="images/icon.svg" alt="logo"></div>';
-}
-?>
+    <div class="pacelogo"><img src="images/icon.svg" alt="logo"></div>
+
 
     <div class="pacewrap"> <!-- THIS IS CONTAINER FOR LOADER -->
         <?php include 'includes/top.php' ?>
@@ -23,8 +17,8 @@ if(!isset($_SESSION['loaded_logo']))
                         <h4 class="text-center">Category:</h4>
                         <select name="category" ng-model="searchType">
                             <option value="All" selected>All</option>
-                            <option value="Pub">Pub</option>
-                            <option value="Beer">Beer</option>
+                            <option value="Venue">Venue</option>
+                            <option value="Drink">Drink</option>
                         </select>
                     </div>
                     <div class="col-lg-3"></div>
@@ -46,13 +40,13 @@ if(!isset($_SESSION['loaded_logo']))
                 <div class="row">
                     <!--SINGLE SEARCH RESULT -->
                     <div class="col-lg-4 cardAnimation" ng-repeat="obj in results | filter: {'type' : searchType=='All' ? '' : searchType} | filter: searchBar">
-                        <div class="result beer text-center" ng-click="goTo(obj.type | lowercase, obj.name | lowercase)">
+                        <div class="result beer text-center" ng-click="goTo(obj.type | lowercase, obj.id)">
                             <div class="logoWrapper">
-                                <div class="logo" ng-attr-style="background-image:url('{{obj.img}}');"></div>
+                                <div class="logo" ng-attr-style="background-image:url('{{obj.image}}');"></div>
                             </div>
                             <h1>{{obj.name}}</h1>
                             <h3>{{obj.info1}}</h3>
-                            <h3>{{obj.type=='Beer' ? 'Cheapest price: €' : 'Price rate: '}}{{obj.info2}}</h3>
+                            <h3>{{obj.type=='drink' ? 'Cheapest price: €' : 'Avg. venue price: €'}}{{obj.info2}}</h3>
                         </div>
                     </div>
                     <!--END OF SINGLE SEARCH RESULT -->

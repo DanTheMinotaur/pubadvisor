@@ -9,8 +9,7 @@
             {
                 $http({
                     method: 'GET',
-                    url: 'includes/search.php',
-                    params: {'query': 'gimme'}
+                    url: 'api/search',
                   }).then(function successCallback(response) {
                       $scope.results = response.data;
                     }, function errorCallback(response) {
@@ -27,13 +26,13 @@
             $scope.searchType = "All";
 
             //function redirecting to the correct page generator according to item type
-            $scope.goTo = function(type, name)
+            $scope.goTo = function(type, id)
             {
                 //checking if address contains spaces if yes replace it with '-'
                 if (name.indexOf(' ') > -1) {
                     name = name.replace(/ /g,"-");
                 }
-                window.location = '/' + type + '/' + name;
+                window.location = '/' + type + '?id=' + id;
             }
         });
 
