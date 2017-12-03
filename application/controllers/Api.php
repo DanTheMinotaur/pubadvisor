@@ -15,6 +15,7 @@ class Api extends REST_Controller {
 
     /*
      * Drink API calls
+     *
      * */
 
     // Get all drinks API call

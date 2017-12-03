@@ -2,43 +2,96 @@
 /**
  * Created by PhpStorm.
  * User: Daniel
- * Date: 02/11/2017
- * Time: 18:03
+ * Date: 02/12/2017
+ * Time: 15:10
  */
 
 class Admin extends CI_Controller {
     function __construct() {
         parent::__construct();
-        //$this->load->models('login_model');
+        $this->load->library(array('form_validation', 'session'));
+        $this->load->helper(array('form', 'url'));
     }
 
-
-    public function index() {
-        // Loads the views/login.php template and sets it to the index of Admin Controller
-        $this->load->view('admin');
-    }
-
-    public function login() {
-        $this->load->view('login');
-    }
-
-    /*
-    public function login_post() {
-        // Loads the views/login.php template
-        $this->load->view('login');
-        $email = $this->input->post("username");
-        $password = $this->input->post("password");
-
-        // Checks if either email or pwd are empty
-        if(!$email || !$password) {
-            $this->response("Enter a valid username and password", 400);
+    function index() {
+        if($this->session->logged_in) {
+            $this->load->view('admin');
+            print($this->session->logged_in);
+            print($this->session->name);
         } else {
-            // Loads the Login Model e.g. DB access
-            $this->load->model('login_model');
-            // Returns the accounts details as JSON string with status code 200
-            // TODO Hashing
-            $this->response($this->login_model->getAdminUserDetails($email, $password), 200);
+            redirect('admin/login');
         }
     }
-    */
+
+    function login() {
+        if($this->session->logged_in) {
+            redirect('admin');
+        }
+
+        $this->form_validation->set_rules('username', 'Username', 'required|trim');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+
+        if(!$this->form_validation->run()) {
+            $this->load->view('admin/login');
+        } else {
+            print('login sent.');
+
+            $this->load->model('admin_model');
+
+            $user = $this->admin_model->verifyLogin(strtolower($this->input->post('username')), $this->input->post('password'));
+
+            // Check if log in details are valid
+            if(!$user) {
+                $this->session->error_message = 'Invalid Username or Password';
+                //print('Invalid Username or Password');
+                $this->load->view('admin/login');
+            } else {
+                $this->session->logged_in = TRUE;
+                $this->session->mark_as_temp('logged_in', 60); // Set logged in for 60 seconds.
+                $this->session->name = $user->name;
+                $this->session->username = $user->username;
+                $this->session->email = $user->email;
+                $user = NULL; // Destroy User Data
+                redirect('admin');
+            }
+        }
+    }
+
+    function register() {
+        $this->form_validation->set_rules('name', 'Name', 'required|trim');
+        $this->form_validation->set_rules('username', 'Username', 'required|trim');
+        $this->form_validation->set_rules('password', 'Password', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim');
+
+        // Loads register view
+        if(!$this->form_validation->run()) {
+            $this->load->view('admin/register');
+        } else {
+            $this->load->model('admin_model');
+
+            $user_data = array(
+                'name' => $this->input->post('name'),
+                'username' => strtolower($this->input->post('username')),
+                'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
+                'email' => strtolower($this->input->post('email'))
+            );
+
+            if($this->admin_model->checkUserEmailExists($user_data['email'])) {
+                $this->session->error_message = 'Email already Exists';
+                print($this->session->error_message);
+                $this->load->view('admin/register');
+            } elseif ($this->admin_model->checkUsernameExists($user_data['username'])) {
+                print('Username Already Exists');
+                $this->load->view('admin/register');
+            } else {
+                if($this->admin_model->registerUser($user_data)) {
+                    print('User Craeted');
+                    redirect('admin/login');
+                } else {
+                    print('Could not create user');
+                    $this->load->view('register');
+                }
+            }
+        }
+    }
 }
