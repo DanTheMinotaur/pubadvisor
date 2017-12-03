@@ -12,11 +12,12 @@ class Admin_model extends CI_Model {
     function __construct() {
         parent::__construct();
         // Load admin SQL details
-        //$admin_db = $this->load->database('admin', TRUE);
         $this->ADMIN_DB = $this->load->database('admin', TRUE);
     }
 
-    // Function to register user
+    /*
+     * Function to register user
+     */
     function registerUser($user_data) {
         if($this->ADMIN_DB->insert('admin_users', $user_data)) {
             return true;
@@ -25,7 +26,9 @@ class Admin_model extends CI_Model {
         }
     }
 
-    // Returns True if username exists
+    /*
+     * Returns True if the username exists in the DB
+     */
     function checkUsernameExists($username) {
         $this->ADMIN_DB->select('username');
         $this->ADMIN_DB->from('admin_users');
@@ -40,7 +43,9 @@ class Admin_model extends CI_Model {
         }
     }
 
-    // Returns True if the users email exists in the DB
+    /*
+     * Returns True if the users email exists in the DB
+     */
     function checkUserEmailExists($email) {
         $this->ADMIN_DB->select('email');
         $this->ADMIN_DB->from('admin_users');
@@ -54,6 +59,10 @@ class Admin_model extends CI_Model {
         }
     }
 
+    /*
+     * Checks if the login details are valid
+     * returns: userdata if valid, False if invalid
+     */
     function verifyLogin($username, $password) {
         if($this->checkUsernameExists($username)) {
             $this->ADMIN_DB->select('*');
@@ -74,11 +83,9 @@ class Admin_model extends CI_Model {
         }
     }
 
-
-
-
-    // Drinks
-
+    /*
+     * Database Model for CREATE
+     */
     function addDrink($data) {
         //$DB = $this->load->database('admin', TRUE);
         if($this->ADMIN_DB->insert('product', $data)) {
@@ -120,6 +127,9 @@ class Admin_model extends CI_Model {
         }
     }
 
+    /*
+     * Database Model for UPDATE
+     */
     function updateDrink($id, $data) {
         if($this->ADMIN_DB->where('productid', $id)){
             if($this->ADMIN_DB->update('product', $data)){
@@ -131,6 +141,7 @@ class Admin_model extends CI_Model {
             return false;
         }
     }
+
 
     function updateVenue($id, $data) {
         if($this->ADMIN_DB->where('pubid', $id)){
