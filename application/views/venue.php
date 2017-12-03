@@ -1,8 +1,41 @@
+<?php 
+//if there is no id parameter go back to main page
+if(!isset($_GET['id'])){ header('Location: /'); exit(); } 
+?>
 <body>
+<div class="pacelogo"><img src="images/icon.svg" alt="logo"></div>
+  <?php
+    $id = $_GET['id'];
+    //check if id exists in database otherwise show 404
+    if($json = file_get_contents( base_url() . "/api/venueByID?id=$id" ))
+      $res = base_url() . "/api/venueByID?id=$id";
+    else { header('Location: /404.php'); exit(); }
+  ?>
+  <script>
+  angular
+        .module('paVenue', [])
+        .controller('venueCtrl', function($scope, $http){
+            //This function getting json file of all the objects: pubs and beers for search purposes
+            function drink()
+            {
+                $http({
+                    method: 'GET',
+                    url: '<?php echo $res ?>',
+                  }).then(function successCallback(response) {
+                      $scope.venue = response.data;
+                    }, function errorCallback(response) {
+                      // called asynchronously if an error occurs
+                      // or server returns response with an error status.
+                      $scope.venue = response.statusText;
+                    });
+            }
+            //run function search on load
+            drink();
 
-
+        });
+  </script>
     <!--PUB INFO-->
-    <section class="dynamic_page">
+    <section class="dynamic_page" ng-app="paVenue" ng-controller="venueCtrl">
         <div class="container">
 
 
@@ -12,11 +45,11 @@
 
             <div class="row align-items-center">
                 <div class="col-sm-4 col-lg-2">
-                    <img src="<?php echo base_url(); ?>images/drunken_fish.png" alt="logo">
+                    <img class="img-fluid" ng-src="{{venue.info[0].image}}" alt="">
                 </div>
                 <div class="col-sm-8 col-lg-10">
-                    <h1>Drunken Fish</h1>
-                    <p>IFSC, Dublin 1</p>
+                    <h1 ng-bind="venue.info[0].name"></h1>
+                    <p ng-bind="venue.info[0].address"></p>
                 </div>
             </div>
             <div class="col-sm-12">
@@ -29,27 +62,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <a href="/beer/heineken">Heineken</a>
-                            </td>
-                            <td>4.95</td>
-                            <td>Lager</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="/beer/heineken">Heineken</a>
-                            </td>
-                            <td>4.95</td>
-                            <td>Lager</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="/beer/heineken">Heineken</a>
-                            </td>
-                            <td>4.95</td>
-                            <td>Lager</td>
-                        </tr>
+                    <tr ng-repeat="i in venue.prices">
+                    <td>
+                      <a href="/drink?id={{i.id}}">{{i.name}}</a>
+                    </td>
+                    <td>{{i.price}}</td>
+                    <td>{{i.type}}</td>
+                  </tr>
                     </tbody>
                 </table>
             </div>
@@ -79,5 +98,3 @@
             </div>
         </div>
     </div>
-
-    <?php include 'includes/footer.php' ?>

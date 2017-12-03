@@ -1,8 +1,3 @@
-$(document).ready(function () {
-    //this will prevent angularJS content from flickering
-    $('.results').show();
-});
-
 //dublin cordinates
 var dublin = {lat: 53.3499612, lng: -6.2637037}; var drunkenFish = {lat: 53.3492226, lng: -6.2442272};
 //map style
