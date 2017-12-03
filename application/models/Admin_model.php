@@ -12,21 +12,80 @@ class Admin_model extends CI_Model {
     function __construct() {
         parent::__construct();
         // Load admin SQL details
-        //$admin_db = $this->load->database('admin', TRUE);
         $this->ADMIN_DB = $this->load->database('admin', TRUE);
     }
 
-    function test() {
-        //$this->load->database('admin', TRUE);
-        if($this->admin_db->get('Product')) {
+    /*
+     * Function to register user
+     */
+    function registerUser($user_data) {
+        if($this->ADMIN_DB->insert('admin_users', $user_data)) {
             return true;
         } else {
             return false;
         }
     }
 
-    // Drinks
+    /*
+     * Returns True if the username exists in the DB
+     */
+    function checkUsernameExists($username) {
+        $this->ADMIN_DB->select('username');
+        $this->ADMIN_DB->from('admin_users');
+        $this->ADMIN_DB->where('username', $username);
 
+        $user = $this->ADMIN_DB->get();
+
+        if($user->num_rows() > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    /*
+     * Returns True if the users email exists in the DB
+     */
+    function checkUserEmailExists($email) {
+        $this->ADMIN_DB->select('email');
+        $this->ADMIN_DB->from('admin_users');
+        $this->ADMIN_DB->where('email', $this->ADMIN_DB->escape($email));
+        $user = $this->ADMIN_DB->get();
+
+        if($user->num_rows() > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    /*
+     * Checks if the login details are valid
+     * returns: userdata if valid, False if invalid
+     */
+    function verifyLogin($username, $password) {
+        if($this->checkUsernameExists($username)) {
+            $this->ADMIN_DB->select('*');
+            $this->ADMIN_DB->from('admin_users');
+            $this->ADMIN_DB->where('username', $username);
+
+            $query = $this->ADMIN_DB->get();
+
+            $user_data = $query->row();
+
+            if(password_verify($password, $user_data->password)){
+                return $user_data;
+            } else {
+                return FALSE;
+            }
+        } else {
+            return FALSE;
+        }
+    }
+
+    /*
+     * Database Model for CREATE
+     */
     function addDrink($data) {
         //$DB = $this->load->database('admin', TRUE);
         if($this->ADMIN_DB->insert('product', $data)) {
@@ -68,6 +127,9 @@ class Admin_model extends CI_Model {
         }
     }
 
+    /*
+     * Database Model for UPDATE
+     */
     function updateDrink($id, $data) {
         if($this->ADMIN_DB->where('productid', $id)){
             if($this->ADMIN_DB->update('product', $data)){
@@ -79,6 +141,7 @@ class Admin_model extends CI_Model {
             return false;
         }
     }
+
 
     function updateVenue($id, $data) {
         if($this->ADMIN_DB->where('pubid', $id)){
