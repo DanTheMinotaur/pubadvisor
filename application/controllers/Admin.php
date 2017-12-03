@@ -58,6 +58,10 @@ class Admin extends CI_Controller {
     }
 
     function register() {
+        if($this->session->logged_in) {
+            redirect('admin');
+        }
+
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('username', 'Username', 'required|trim');
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
