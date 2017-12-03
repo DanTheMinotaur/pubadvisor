@@ -1,10 +1,8 @@
-<?php //session_start() ?>
 <!doctype html>
 <html lang="en">
-<?php //$this->load->helper('url'); ?>
 <head>
   <title>Pub Advisor</title>
-  <?php 
+  <?php
   //checking if page is main page and if yes applying loader script and styling
   /*
   if($_SERVER['REQUEST_URI'] === '/' && !isset($_SESSION['loaded']))
@@ -20,7 +18,7 @@
     </script>';
   }
   */
-  ?>
+  ?>-->
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

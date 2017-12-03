@@ -21,11 +21,9 @@ class Admin extends CI_Controller {
         } else {
             redirect('admin/login');
         }
-
     }
 
     function login() {
-
         if($this->session->logged_in) {
             redirect('admin');
         }
@@ -34,7 +32,7 @@ class Admin extends CI_Controller {
         $this->form_validation->set_rules('password', 'Password', 'required');
 
         if(!$this->form_validation->run()) {
-            $this->load->view('login');
+            $this->load->view('admin/login');
         } else {
             print('login sent.');
 
@@ -44,8 +42,9 @@ class Admin extends CI_Controller {
 
             // Check if log in details are valid
             if(!$user) {
-                print('Invalid Username or Password');
-                $this->load->view('login');
+                $this->session->error_message = 'Invalid Username or Password';
+                //print('Invalid Username or Password');
+                $this->load->view('admin/login');
             } else {
                 $this->session->logged_in = TRUE;
                 $this->session->mark_as_temp('logged_in', 60); // Set logged in for 60 seconds.
@@ -59,16 +58,14 @@ class Admin extends CI_Controller {
     }
 
     function register() {
-        //$this->load->view('register');
-
-        $this->form_validation->set_rules('name', 'Name', 'required');
-        $this->form_validation->set_rules('username', 'Username', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+        $this->form_validation->set_rules('name', 'Name', 'required|trim');
+        $this->form_validation->set_rules('username', 'Username', 'required|trim');
+        $this->form_validation->set_rules('password', 'Password', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|trim');
 
         // Loads register view
         if(!$this->form_validation->run()) {
-            $this->load->view('register');
+            $this->load->view('admin/register');
         } else {
             $this->load->model('admin_model');
 
@@ -80,11 +77,12 @@ class Admin extends CI_Controller {
             );
 
             if($this->admin_model->checkUserEmailExists($user_data['email'])) {
-                print('Email already Exists');
-                $this->load->view('register');
+                $this->session->error_message = 'Email already Exists';
+                print($this->session->error_message);
+                $this->load->view('admin/register');
             } elseif ($this->admin_model->checkUsernameExists($user_data['username'])) {
                 print('Username Already Exists');
-                $this->load->view('register');
+                $this->load->view('admin/register');
             } else {
                 if($this->admin_model->registerUser($user_data)) {
                     print('User Craeted');
