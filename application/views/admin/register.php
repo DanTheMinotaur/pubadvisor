@@ -32,7 +32,7 @@
             </div>
             <div class="form-group">
                 <label for="ProfileImageRegister">Profile Picture</label>
-                <input type="file" class="form-control-file" id="ProfileImageRegister" name="password" placeholder="Password">
+                <input type="file" class="form-control-file" id="ProfileImageRegister" name="profileImage" placeholder="Password">
             </div>
             <!--<input type="submit" name="submit" class="btn-primary" value="Submit">-->
             <button type="submit" name="submit" class="btn btn-primary">Register</button>

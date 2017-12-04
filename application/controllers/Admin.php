@@ -73,12 +73,33 @@ class Admin extends CI_Controller {
         } else {
             $this->load->model('admin_model');
 
+            /*
+            $config['upload_path'] = './images/admin/';
+            $config['allowed_types'] = 'gif|jpg|png|svg';
+            $config['max_size']     = '3000';
+
+            $this->load->library('upload', $config);
+
+            if($this->upload->do_upload('profileImage')) {
+                $this->load->view('home');
+            } else {
+                $error = array('error' => $this->upload->display_errors());
+                $this->load->view('admin/register', $error);
+                print_r($error);
+                die();
+            }
+            */
+
             $user_data = array(
                 'name' => $this->input->post('name'),
                 'username' => strtolower($this->input->post('username')),
                 'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
                 'email' => strtolower($this->input->post('email'))
             );
+
+            $this->imageUploader('admin/', 'profileImage', $user_data['username']);
+
+            //$this->imageUpload('admin/', 'profileImage');
 
             if($this->admin_model->checkUserEmailExists($user_data['email'])) {
                 $this->session->error_message = 'Email already Exists';
@@ -96,6 +117,21 @@ class Admin extends CI_Controller {
                     $this->load->view('register');
                 }
             }
+        }
+    }
+
+    private function imageUploader($location, $upload_data, $file_name){
+        $config['upload_path'] = 'images/' . $location;
+        $config['allowed_types'] = 'gif|jpg|png|svg';
+        $config['max_size']     = '3000';
+        $config['file_name'] = $file_name;
+
+        $this->load->library('upload', $config);
+
+        if($this->upload->do_upload($upload_data)) {
+            return $config['upload_path'] . $config['file_name'];
+        } else {
+            return NULL;
         }
     }
 }
