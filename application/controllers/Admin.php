@@ -73,23 +73,6 @@ class Admin extends CI_Controller {
         } else {
             $this->load->model('admin_model');
 
-            /*
-            $config['upload_path'] = './images/admin/';
-            $config['allowed_types'] = 'gif|jpg|png|svg';
-            $config['max_size']     = '3000';
-
-            $this->load->library('upload', $config);
-
-            if($this->upload->do_upload('profileImage')) {
-                $this->load->view('home');
-            } else {
-                $error = array('error' => $this->upload->display_errors());
-                $this->load->view('admin/register', $error);
-                print_r($error);
-                die();
-            }
-            */
-
             $user_data = array(
                 'name' => $this->input->post('name'),
                 'username' => strtolower($this->input->post('username')),
@@ -99,11 +82,9 @@ class Admin extends CI_Controller {
 
             $user_data['image'] = $this->imageUploader('admin/', 'profileImage', $user_data['username']);
 
-            //$this->imageUpload('admin/', 'profileImage');
-
             if($this->admin_model->checkUserEmailExists($user_data['email'])) {
-                $this->session->error_message = 'Email already Exists';
-                print($this->session->error_message);
+                $this->session->message = 'Email already Exists';
+                print($this->session->message);
                 $this->load->view('admin/register');
             } elseif ($this->admin_model->checkUsernameExists($user_data['username'])) {
                 print('Username Already Exists');
