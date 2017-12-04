@@ -94,10 +94,10 @@ class Admin extends CI_Controller {
                 'name' => $this->input->post('name'),
                 'username' => strtolower($this->input->post('username')),
                 'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
-                'email' => strtolower($this->input->post('email'))
+                'email' => strtolower($this->input->post('email')),
             );
 
-            $this->imageUploader('admin/', 'profileImage', $user_data['username']);
+            $user_data['image'] = $this->imageUploader('admin/', 'profileImage', $user_data['username']);
 
             //$this->imageUpload('admin/', 'profileImage');
 
@@ -121,6 +121,7 @@ class Admin extends CI_Controller {
     }
 
     private function imageUploader($location, $upload_data, $file_name){
+        // Settings
         $config['upload_path'] = 'images/' . $location;
         $config['allowed_types'] = 'gif|jpg|png|svg';
         $config['max_size']     = '3000';
@@ -129,7 +130,8 @@ class Admin extends CI_Controller {
         $this->load->library('upload', $config);
 
         if($this->upload->do_upload($upload_data)) {
-            return $config['upload_path'] . $config['file_name'];
+            $file_data = $this->upload->data();
+            return $config['upload_path'] . $file_data['file_name'];
         } else {
             return NULL;
         }

@@ -8,7 +8,7 @@ CREATE TABLE paadminusers.users (
   username VARCHAR(100) NOT NULL UNIQUE,
   email VARCHAR(100) NOT NULL UNIQUE,
   password VARCHAR(200) NOT NULL,
-  phone VARCHAR(30),
+  image TEXT,
   date_created TIMESTAMP DEFAULT CURRENT_DATE,
   last_login TIMESTAMP DEFAULT NULL
 );
