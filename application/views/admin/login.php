@@ -7,8 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+<?php
+    if(isset($_SESSION['message'])) {
+        //echo '<div class="message">' . $_SESSION['message'] . '</div>';
+        //unset($_SESSION['message']);
+        echo "Hello";
+    }
+?>
 <div class="container">
-
     <?php echo form_open('admin/login') ?>
         <div class="form-group">
             <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username">

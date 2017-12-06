@@ -51,6 +51,7 @@ class Admin extends CI_Controller {
                 $this->session->name = $user->name;
                 $this->session->username = $user->username;
                 $this->session->email = $user->email;
+                $this->session->profile_image = $user->image;
                 $user = NULL; // Destroy User Data
                 redirect('admin');
             }
@@ -59,6 +60,7 @@ class Admin extends CI_Controller {
 
     function register() {
         if($this->session->logged_in) {
+            $this->session->message = "You'll need to be logged in Buddy";
             redirect('admin');
         }
 
@@ -87,7 +89,8 @@ class Admin extends CI_Controller {
                 print($this->session->message);
                 $this->load->view('admin/register');
             } elseif ($this->admin_model->checkUsernameExists($user_data['username'])) {
-                print('Username Already Exists');
+                $this->session->message = 'Email already Exists';
+                print($this->session->message);
                 $this->load->view('admin/register');
             } else {
                 if($this->admin_model->registerUser($user_data)) {
