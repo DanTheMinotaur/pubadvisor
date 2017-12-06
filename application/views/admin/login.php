@@ -14,9 +14,11 @@ $this->load->view('includes/top');
         <?php echo validation_errors(); ?>
         <?php echo form_open('admin/login') ?>
             <div class="form-group">
+                <label for="usernameLogIn">Username</label>
                 <input type="text" name="username" id="usernameLogIn" class="form-control" placeholder="MyCheeseGrater12">
             </div>
             <div class="form-group">
+                <label for="passwordLogIn">Password</label>
                 <input type="password" name="password" id="passwordLogIn" class="form-control" placeholder="Password1234">
             </div>
             <div class="form-group">
