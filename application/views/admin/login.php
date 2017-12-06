@@ -15,11 +15,11 @@ $this->load->view('includes/top');
         <?php echo form_open('admin/login') ?>
             <div class="form-group">
                 <label for="usernameLogIn">Username</label>
-                <input type="text" name="username" id="usernameLogIn" class="form-control" placeholder="MyCheeseGrater12">
+                <input type="text" name="username" id="usernameLogIn" class="form-control" placeholder="MyCheeseGrater12" required pattern="^\S{3,20}$">
             </div>
             <div class="form-group">
                 <label for="passwordLogIn">Password</label>
-                <input type="password" name="password" id="passwordLogIn" class="form-control" placeholder="Password1234">
+                <input type="password" name="password" id="passwordLogIn" class="form-control" placeholder="Password1234" required>
             </div>
             <div class="form-group">
                 <div class="col-sm-6" style="float: none;margin: 0 auto;">

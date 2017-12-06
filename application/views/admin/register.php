@@ -15,20 +15,20 @@
         <?php echo validation_errors(); ?>
         <?php echo form_open_multipart('admin/register') ?>
             <div class="form-group">
-                <label for="nameRegister">Name</label>
-                <input type="text" class="form-control" id="nameRegister" name="name" placeholder="Paul Hayes">
+                <label for="nameRegister">Name [This should be pretty clear]</label>
+                <input type="text" class="form-control" id="nameRegister" name="name" placeholder="Paul Hayes" required>
             </div>
             <div class="form-group">
-                <label for="usernameRegister">Username</label>
-                <input type="text" class="form-control" id="usernameRegister" name="username" placeholder="MrMack234">
+                <label for="usernameRegister">Username [Greater Than 3 Characters and no spaces]</label>
+                <input type="text" class="form-control" id="usernameRegister" name="username" placeholder="MrMack234" required pattern="^\S{3,20}$">
             </div>
             <div class="form-group">
-                <label for="emailResister">Email</label>
-                <input type="email" class="form-control" id="emailResister" name="email" placeholder="example@example.com">
+                <label for="emailResister">Email [That thing you use to sign up to things]</label>
+                <input type="email" class="form-control" id="emailResister" name="email" placeholder="example@example.com" required>
             </div>
             <div class="form-group">
-                <label for="passwordResister">Password</label>
-                <input type="password" class="form-control" id="passwordResister"  name="password" placeholder="Password">
+                <label for="passwordResister">Password [7 Characters or more]</label>
+                <input type="password" class="form-control" id="passwordResister"  name="password" placeholder="Password" required  pattern="^\S{7,20}$">
             </div>
             <div class="form-group">
                 <label for="ProfileImageRegister">Profile Picture</label>
