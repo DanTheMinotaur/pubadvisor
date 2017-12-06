@@ -51,6 +51,7 @@ class Admin extends CI_Controller {
                 $this->session->name = $user->name;
                 $this->session->username = $user->username;
                 $this->session->email = $user->email;
+                $this->session->profile_image = $user->image;
                 $user = NULL; // Destroy User Data
                 redirect('admin');
             }
@@ -59,6 +60,7 @@ class Admin extends CI_Controller {
 
     function register() {
         if($this->session->logged_in) {
+            $this->session->message = "You'll need to be logged in Buddy";
             redirect('admin');
         }
 
@@ -77,15 +79,18 @@ class Admin extends CI_Controller {
                 'name' => $this->input->post('name'),
                 'username' => strtolower($this->input->post('username')),
                 'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT),
-                'email' => strtolower($this->input->post('email'))
+                'email' => strtolower($this->input->post('email')),
             );
 
+            $user_data['image'] = $this->imageUploader('admin/', 'profileImage', $user_data['username']);
+
             if($this->admin_model->checkUserEmailExists($user_data['email'])) {
-                $this->session->error_message = 'Email already Exists';
-                print($this->session->error_message);
+                $this->session->message = 'Email already Exists';
+                print($this->session->message);
                 $this->load->view('admin/register');
             } elseif ($this->admin_model->checkUsernameExists($user_data['username'])) {
-                print('Username Already Exists');
+                $this->session->message = 'Email already Exists';
+                print($this->session->message);
                 $this->load->view('admin/register');
             } else {
                 if($this->admin_model->registerUser($user_data)) {
@@ -96,6 +101,23 @@ class Admin extends CI_Controller {
                     $this->load->view('register');
                 }
             }
+        }
+    }
+
+    private function imageUploader($location, $upload_data, $file_name){
+        // Settings
+        $config['upload_path'] = 'images/' . $location;
+        $config['allowed_types'] = 'gif|jpg|png|svg';
+        $config['max_size']     = '3000';
+        $config['file_name'] = $file_name;
+
+        $this->load->library('upload', $config);
+
+        if($this->upload->do_upload($upload_data)) {
+            $file_data = $this->upload->data();
+            return $config['upload_path'] . $file_data['file_name'];
+        } else {
+            return NULL;
         }
     }
 }

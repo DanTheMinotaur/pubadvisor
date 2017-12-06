@@ -49,7 +49,7 @@ class Admin_model extends CI_Model {
     function checkUserEmailExists($email) {
         $this->ADMIN_DB->select('email');
         $this->ADMIN_DB->from('admin_users');
-        $this->ADMIN_DB->where('email', $this->ADMIN_DB->escape($email));
+        $this->ADMIN_DB->where('email', $email);
         $user = $this->ADMIN_DB->get();
 
         if($user->num_rows() > 0) {
