@@ -2,7 +2,7 @@
 
 DROP TABLE users;
 
-CREATE TABLE users (
+CREATE TABLE admin_users (
   id SERIAL PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
   username VARCHAR(100) NOT NULL UNIQUE,
