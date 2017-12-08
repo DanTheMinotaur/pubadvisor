@@ -14,6 +14,9 @@ class Home extends CI_Controller {
         $this->load->helper('url');
     }
 
+    /*
+     * Passes value for searching and adds it to the session for navigating to page
+     */
     public function setquery()
     {
         $query = $this->input->post("q");
