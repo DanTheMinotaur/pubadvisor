@@ -5,7 +5,8 @@
  * @author Daniel Devine
  * Model Class for logging in and registering new users
  * Model also contains the methods for CRUD functionality
- */
+ * Uses CodeIgniter QueryBuilder Class https://www.codeigniter.com/userguide3/database/query_builder.html
+ * */
 
 class Admin_model extends CI_Model {
     private $ADMIN_DB;
