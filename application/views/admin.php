@@ -39,7 +39,7 @@
 							<input type="text" name="country" class="form-control" placeholder="Eg. Russia" >
 						</div>
 						<div class="form-group">
-							<label>Country of origin:</label>
+							<label>Amount[Pint, Glass, Shot etc.]:</label>
 							<input type="number" name="quantity" class="form-control" placeholder="Eg. 500" >
 						</div>
 						<div class="form-group">

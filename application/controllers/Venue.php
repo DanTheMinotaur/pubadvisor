@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Daniel
+ * Class Admin
  * Date: 30/10/2017
- * Time: 20:43
+ * @author Daniel Devine
+ * Controller Class for Venue Page, loads views.
  */
 class Venue extends CI_Controller {
     function __construct() {

@@ -1,18 +1,23 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Daniel
+ * Class Admin
  * Date: 02/12/2017
- * Time: 15:10
+ * @author Daniel Devine
+ * Controller Class for admin panel, handles validation and checking and creation of session data
  */
-
 class Admin extends CI_Controller {
+    /*
+     * Contructor loads CI helper libaries
+     */
     function __construct() {
         parent::__construct();
         $this->load->library(array('form_validation'));
         $this->load->helper(array('form', 'url'));
     }
 
+    /**
+     * Admin Panel Controller, checks if user is logged in
+     */
     function index() {
         if($this->session->logged_in) {
             $this->load->view('admin');
@@ -20,7 +25,11 @@ class Admin extends CI_Controller {
             redirect('admin/login');
         }
     }
-
+    /*
+     * Log in function, will check if user is logged in already and redirect to admin controller
+     * Validates user data before submission and then checks the encrted password is a match
+     * Will then return the users details to the current session allowing them to access the admin panel.
+     */
     function login() {
         if($this->session->logged_in) {
             redirect('admin');
@@ -56,11 +65,19 @@ class Admin extends CI_Controller {
         }
     }
 
+    /*
+     * Log out controller
+     */
+
     function logout()
     {
         $this->session->unset_userdata('logged_in');
         redirect('home');
     }
+    /*
+     * Register Controller will add user data submitted from form and add user to database after it has been validated
+     * Once data is validated it will encrypt the users password and store the details in the database
+     */
 
     function register() {
         if($this->session->logged_in) {
@@ -107,6 +124,10 @@ class Admin extends CI_Controller {
             }
         }
     }
+
+    /*
+     * Method will store image in specific place and return the location in string or return NULL if there was no image
+     */
 
     private function imageUploader($location, $upload_data, $file_name){
         // Settings

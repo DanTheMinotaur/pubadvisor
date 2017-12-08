@@ -1,25 +1,27 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Daniel
- * Date: 20/11/2017
- * Time: 22:01
- */
 
 // Include CodeIgniter REST Controller
 require(APPPATH.'/libraries/REST_Controller.php');
 
+/**
+ * Class Admin_api
+ * Date: 20/11/2017
+ * @author Daniel Devine
+ * Class inherits from the codeigniter REST Server @reference https://github.com/chriskacerguis/codeigniter-restserver
+ * Class is based off REST Server each method uses HTTP Methods and returns relevant status code e.g. 200 [Success], 404 [Not Found], 401 [Invalid Data],  50* [Server Issue]
+ */
 class Admin_api extends REST_Controller {
+    /*
+     * Contructor Method loads the admin model [db] class
+     */
     function __construct() {
         parent::__construct();
         $this->load->model('admin_model');
     }
 
-    function test_post() {
-        $result = $this->admin_model->test();
-        $this->response($result, 200);
-    }
-
+    /*
+     * HTTP POST METHOD For adding new items to Database
+     */
     function addDrink_post(){
         $drink_data = array(
             'name' => $this->post('name'),
@@ -46,6 +48,10 @@ class Admin_api extends REST_Controller {
         }
     }
 
+    /*
+     * Method to add a drink category
+     */
+
     function addDrinkCategory_post() {
         $drink_category_data = array(
             'prodcatname' => $this->post('name'),
@@ -64,6 +70,9 @@ class Admin_api extends REST_Controller {
         }
     }
 
+    /*
+     * Add Venue e.g. Pubs
+     */
     function addVenue_post() {
         $venue_data = array(
             'name' => $this->post('name'),
@@ -86,7 +95,9 @@ class Admin_api extends REST_Controller {
             $this->response('Something went wrong, go fix it', 501);
         }
     }
-
+    /*
+     * Add Venue Category
+     */
     function addVenueCategory_post() {
         $category_data = array(
             'pubcatname' => $this->post('name'),
@@ -104,6 +115,10 @@ class Admin_api extends REST_Controller {
             $this->response('Something went wrong, go fix it', 501);
         }
     }
+
+    /*
+     * Adds a product to a pub
+     */
 
     function addInventory_post() {
         $drink_data = array(
@@ -125,6 +140,10 @@ class Admin_api extends REST_Controller {
         }
     }
 
+    /*
+     * HTTP PUT Methods for editing data in the database
+     * Updates a drink already in the database
+     */
     function updateDrink_put(){
         $drink_data = array(
             'productid' => $this->put('id'),
@@ -150,6 +169,10 @@ class Admin_api extends REST_Controller {
         }
     }
 
+    /*
+     * Updates Venue, e.g Pub
+     */
+
     function updateVenue_put() {
         $venue_data = array(
             'pubid' => $this->put('id'),
@@ -173,6 +196,9 @@ class Admin_api extends REST_Controller {
         }
     }
 
+    /*
+     * Add product to a pub
+     */
     function updateInventory_put() {
         $inventory_data = array(
             'pubprodid' => $this->put('id'),
@@ -194,7 +220,10 @@ class Admin_api extends REST_Controller {
         }
     }
 
-    // TODO handle Foreign key constraint in DB
+    /*
+     * HTTP Detele Methods, all methods take 1 parameter of ID
+     * Delete a drink
+     */
     function deleteDrink_delete() {
         $id = $this->delete('id');
 
@@ -208,6 +237,10 @@ class Admin_api extends REST_Controller {
             }
         }
     }
+    /*
+     * Delete a product from a pub based on it's id
+     *
+     * */
 
     function deleteInventory_delete() {
         $id = $this->delete('id');
@@ -223,6 +256,10 @@ class Admin_api extends REST_Controller {
         }
     }
 
+    /*
+     * Delete a venue based on it's ID
+     */
+
     function deleteVenue_delete() {
         $id = $this->delete('id');
 
@@ -237,6 +274,10 @@ class Admin_api extends REST_Controller {
         }
     }
 
+    /*
+     * Delete a drink category
+     */
+
     function deleteDrinkCategory_delete() {
         $id = $this->delete('id');
 
@@ -250,6 +291,10 @@ class Admin_api extends REST_Controller {
             }
         }
     }
+
+    /*
+     * Delete a venue category
+     */
 
     function deleteVenueCategory_delete() {
         $id = $this->delete('id');
