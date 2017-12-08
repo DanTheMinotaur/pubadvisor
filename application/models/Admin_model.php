@@ -1,14 +1,18 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Daniel
+ * Class Admin_model
  * Date: 20/11/2017
- * Time: 22:05
+ * @author Daniel Devine
+ * Model Class for logging in and registering new users
+ * Model also contains the methods for CRUD functionality
  */
 
 class Admin_model extends CI_Model {
     private $ADMIN_DB;
 
+    /*
+     * Loads the admin database profile
+     */
     function __construct() {
         parent::__construct();
         // Load admin SQL details
@@ -168,9 +172,13 @@ class Admin_model extends CI_Model {
     }
 
     /*
+     * Database Model for DELETE
+     */
+
+
+    /*
      * Helper function for deleting records from DB
      * */
-
     private function deleteRecord($id, $column_id_name, $table_name) {
         if($this->ADMIN_DB->where($column_id_name, (int)$id)) {
             if($this->ADMIN_DB->delete($table_name)) {
