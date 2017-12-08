@@ -1,13 +1,11 @@
-<?php include 'includes/header.php';
-$_SESSION['logged'] = true; //setting session variable just to try to emulate that admin is logged for test
-?>
+<?php $this->load->view('includes/header.php') ?>
 
     <body ng-app="paSearch" ng-controller="searchCtrl">
-    <div class="pacelogo"><img src="images/icon.svg" alt="logo"></div>
+    <div class="pacelogo"><img src="<?php echo base_url(); ?>images/icon.svg" alt="logo"></div>
 
 
     <div class="pacewrap"> <!-- THIS IS CONTAINER FOR LOADER -->
-        <?php include 'includes/top.php' ?>
+        <?php $this->load->view('includes/top.php') ?>
 
         <!--SELECTION CATEGORY, SORT BY-->
         <section class="selection">
@@ -24,9 +22,8 @@ $_SESSION['logged'] = true; //setting session variable just to try to emulate th
                     <div class="col-lg-3"></div>
                     <div class="col-lg-2">
                         <h4 class="text-center">Sort by:</h4>
-                        <select name="sortby">
+                        <select name="sortby" ng-model="sortBy">
                             <option value="name" selected>Name</option>
-                            <option value="rating">Rating</option>
                             <option value="price">Price</option>
                         </select>
                     </div>
@@ -39,7 +36,7 @@ $_SESSION['logged'] = true; //setting session variable just to try to emulate th
             <div class="container">
                 <div class="row">
                     <!--SINGLE SEARCH RESULT -->
-                    <div class="col-lg-4 cardAnimation" ng-repeat="obj in results | filter: {'type' : searchType=='All' ? '' : searchType} | filter: searchBar">
+                    <div class="col-lg-4 cardAnimation" ng-repeat="obj in results | filter: {'type' : searchType=='All' ? '' : searchType} | filter: searchBar | orderBy : sortBy=='name' ? 'info2' : 'name'" stylo>
                         <div class="result beer text-center" ng-click="goTo(obj.type | lowercase, obj.id)">
                             <div class="logoWrapper">
                                 <div class="logo" ng-attr-style="background-image:url('{{obj.image}}');"></div>
@@ -49,7 +46,8 @@ $_SESSION['logged'] = true; //setting session variable just to try to emulate th
                             <h3>{{obj.type=='drink' ? 'Cheapest price: €' : 'Avg. venue price: €'}}{{obj.info2}}</h3>
                         </div>
                     </div>
-                    <!--END OF SINGLE SEARCH RESULT -->
+                    <h1 style="margin:auto" ng-show="(results | filter:searchBar).length == 0">No results of this search :(</h1>
+
                 </div>
             </div>
         </section>
@@ -76,4 +74,4 @@ $_SESSION['logged'] = true; //setting session variable just to try to emulate th
             </div>
         </div>
     </div>
-<?php include 'includes/footer.php' ?>
+    <?php $this->load->view('includes/footer.php') ?>

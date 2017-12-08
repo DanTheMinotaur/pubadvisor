@@ -19,13 +19,13 @@ function initMap() {
       map: map,
       title: 'My position',
       draggable: true,
-      icon: 'images/icon.png'
+      icon: '/images/icon.png'
     });
     marker.addListener('dragend', function(){
         markers[0].setMap(null);
     });
     //ADD MARKER TO THE MAP FUNCTION
-    addMarker(drunkenFish, map, "Drunken Fekin Fish", 'images/rnd_map_icon.png');
+    addMarker(drunkenFish, map, "Drunken Fekin Fish", '/images/rnd_map_icon.png');
     function addMarker(_position, _map, _title, _icon){
         let temp = 
         new google.maps.Marker({
@@ -49,18 +49,26 @@ $('.searchField').blur(function (e) {
     e.preventDefault();
     $('.searchWrap').removeClass('active');
 });
-//listener when avatar is clicked go to admin page
-$('.avatar').click(function (e) { 
-    e.preventDefault();
-    window.location = '/admin';
+
+$('.searchBtn, #mobile-btn').click(function () { 
+    if(window.location.pathname != "/")
+    {
+        $.ajax({
+            type: "post",
+            url: "/home/setquery",
+            data: {q: $('.searchField').val()},
+            success: function () {
+                window.location.href = "/";
+            }
+        });
+    }
 });
 
-/* Removed this because it was causing the issue of going back to Apache Root
-$('.pa-logo img').click(function (e) { 
+$('.dropdown-item').click(function (e) { 
     e.preventDefault();
-    window.location = '/';
+    window.location.href = $(this).attr('href');
 });
-*/
+
 //this function fixing issue of map on bootstrap modal by triggering map resize whenever modal is loaded
 $('#mapModal').on('shown.bs.modal', function () {
     google.maps.event.trigger(map, "resize");
@@ -71,4 +79,65 @@ $('#mapModal').on('shown.bs.modal', function () {
         resizedFlag = false;
     }
     
+});
+//changing forms
+function btnAction(action)
+{
+    function swap(el)
+    {
+        if(!el.hasClass('active'))
+        {
+            $('.formz').removeClass('active');
+            el.addClass('active');
+        }
+    }
+    switch (action) {
+        case 'addPro':
+            swap($('#addDrink'));
+            break;
+        case 'addVenue':
+            swap($('#addVenue'));
+            break;
+        case 'deletePro':
+            swap($('#deletePro'));
+            break;
+        case 'deleteVenue':
+            swap($('#deleteVenue'));
+            break;
+    }
+}
+//add drink btn
+$('#addDrinkBtn').click(function () { 
+    $.ajax({
+        type: "post",
+        url: "/admin_api/addDrink",
+        data: $('#addDrink form').serialize(),
+        success: function (response) {
+            swal("", response, "success");
+            $('#addDrink form').trigger("reset");
+        },
+        error: function() {
+            swal("Ooopps...", "Something went wrong", "error");
+        }
+    });
+});
+
+$('#addVenueBtn').click(function () { 
+    $.ajax({
+        type: "post",
+        url: "/admin_api/addVenue",
+        data: $('#addVenue form').serialize(),
+        success: function (response) {
+            if(response == 'Venue Added')
+            {
+                swal("", response, "success");
+                $('#addVenue form').trigger("reset");
+            }      
+            else
+                swal("", response, "error");
+        },
+        error: function() {
+            swal("Ooopps...", "Something went wrong", "error");
+        }
+    });
 });

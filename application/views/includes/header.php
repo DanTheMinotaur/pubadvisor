@@ -3,6 +3,14 @@
 <head>
   <title>Pub Advisor</title>
   <!-- Required meta tags -->
+  <script src="/js/pace.min.js"></script>
+  <link rel="stylesheet" href="/css/loader.css">
+  <script>
+  Pace.on("hide", function(){
+    var logo = document.getElementsByClassName("pacelogo");
+    logo[0].className += " out";
+  });
+  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- Bootstrap CSS and Font Awesome -->

@@ -44,6 +44,11 @@ $yellow:  #ffc107 !default;
 $green:   #28a745 !default;
 $teal:    #20c997 !default;
 $cyan:    #17a2b8 !default;
+$color_primary: #E8C300;
+$dark_text: #414141;
+$white_text: #FFFFFF;
+$light_grey: #EEEEEE;
+$accent: #F5A10C;
 
 $colors: () !default;
 $colors: map-merge((
@@ -482,13 +487,13 @@ $form-feedback-invalid-color:       theme-color("danger") !default;
 $dropdown-min-width:                10rem !default;
 $dropdown-padding-y:                .5rem !default;
 $dropdown-spacer:                   .125rem !default;
-$dropdown-bg:                       $white !default;
+$dropdown-bg:                       $color_primary !default;
 $dropdown-border-color:             rgba($black,.15) !default;
 $dropdown-border-width:             $border-width !default;
 $dropdown-divider-bg:               $gray-200 !default;
 $dropdown-box-shadow:               0 .5rem 1rem rgba($black,.175) !default;
 
-$dropdown-link-color:               $gray-900 !default;
+$dropdown-link-color:               $dark_text !default;
 $dropdown-link-hover-color:         darken($gray-900, 5%) !default;
 $dropdown-link-hover-bg:            $gray-100 !default;
 

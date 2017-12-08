@@ -13,4 +13,10 @@ class Home extends CI_Controller {
         // This is for static files and root directory
         $this->load->helper('url');
     }
+
+    public function setquery()
+    {
+        $query = $this->input->post("q");
+        $this->session->query = $query;
+    }
 }

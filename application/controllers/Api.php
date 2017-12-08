@@ -95,11 +95,11 @@ class Api extends REST_Controller {
             }
         }
     }
-
     /*
      * Administration API -- TODO move this to own APi
      *
      * */
+
 
     public function login_post() {
         // Loads the views/login.php template
@@ -118,4 +118,6 @@ class Api extends REST_Controller {
             $this->response($this->login_model->getAdminUserDetails($email, $password), 200);
         }
     }
+
+
 }

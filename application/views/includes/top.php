@@ -1,3 +1,30 @@
+<!--MOBILE NAVBAR-->
+<div class="mobile-menu">
+<div class="collapse" id="navbarToggleExternalContent">
+  <div class="bg-dark p-4">
+  <?php 
+  if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']===true)
+  {
+    echo "<a href='/admin'>Admin Dashboard</a>";
+    echo "<a href='/admin/logout'>Log Out</a>";
+  }
+  else 
+    echo "<a href='/admin'>Log In</a>";
+  ?>
+  <form class="form-inline my-2 my-lg-0">
+      <input id="mobile-text" class="form-control mr-sm-2" ng-model="searchBar" type="search" placeholder="Search" ng-init="searchBar = '<?php if(isset($_SESSION['query'])) echo $_SESSION['query']?>'">
+      <button id="mobile-btn" class="btn btn-warning my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</div>
+<nav class="navbar navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <img src="<?php echo base_url(); ?>images/logo.svg" height="40" alt="">
+</nav>
+</div>
+
 <!--TOP SECTION HIDDEN FROM MD-DOWN-->
 <section class="top">
   <div class="container">
@@ -29,15 +56,22 @@
           </div>
 
       <!-- ADMIN AVATAR PLUS SMALL MENU -->
-      <?php if(isset($_SESSION['logged']) && $_SESSION['logged']===true)
+      <?php if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']===true)
         {
-          echo '<div class="col"><div class="avatar"></div></div>';     
+          //echo '<div class="col"><div class="avatar" data-image="' . base_url() . $_SESSION['profile_image'] . '"></div></div>';     
+          echo "<div class='col'><div class='dropdown'><div class='avatar dropdown-toggle' id='dropdownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false' data-img='" . base_url() .$_SESSION['profile_image'] . "'>
+          <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
+            <a class='dropdown-item' href='/admin'>Dashboard</a>
+            <a class='dropdown-item' href='/admin/logout'>Log Out</a>
+          </div>
+          </div>       
+        </div></div>";
+          echo "<script>var el = document.getElementsByClassName('avatar')[0]; var img = el.getAttribute('data-img'); el.style.backgroundImage = 'url(' + img + ')';</script>";
         }else
         {
-          echo '<div class="col"></div>'; //here will be log in as admin button
+          echo '<div class="col"><div class="log-in"><a href="/admin">Log In</a></div></div>'; //here will be log in as admin button
         }
         ?>
-
     </div>
 
     <!-- SEARCH FIELD-->
@@ -45,7 +79,7 @@
       <div class="col"></div>
       <div class="col-xl-4 col-lg-5 col-md-6">
         <div class="input-group searchWrap">
-          <input type="text" id="searchBar" ng-model="searchBar" class="form-control searchField" placeholder="Search for...">
+          <input type="text" id="searchBar" ng-model="searchBar" class="form-control searchField" placeholder="Search for..." ng-init="searchBar = '<?php if(isset($_SESSION['query'])) echo $_SESSION['query']; $this->session->unset_userdata('query'); ?>'">
           <span class="input-group-btn">
             <button class="btn searchBtn" type="button">
               <i class="fa fa-search" aria-hidden="true"></i>

@@ -9,15 +9,13 @@
 class Admin extends CI_Controller {
     function __construct() {
         parent::__construct();
-        $this->load->library(array('form_validation', 'session'));
+        $this->load->library(array('form_validation'));
         $this->load->helper(array('form', 'url'));
     }
 
     function index() {
         if($this->session->logged_in) {
             $this->load->view('admin');
-            print($this->session->logged_in);
-            print($this->session->name);
         } else {
             redirect('admin/login');
         }
@@ -47,7 +45,7 @@ class Admin extends CI_Controller {
                 $this->load->view('admin/login');
             } else {
                 $this->session->logged_in = TRUE;
-                $this->session->mark_as_temp('logged_in', 60); // Set logged in for 60 seconds.
+                $this->session->mark_as_temp('logged_in', 1200); // Set logged in for 60 seconds.
                 $this->session->name = $user->name;
                 $this->session->username = $user->username;
                 $this->session->email = $user->email;
@@ -56,6 +54,12 @@ class Admin extends CI_Controller {
                 redirect('admin');
             }
         }
+    }
+
+    function logout()
+    {
+        $this->session->unset_userdata('logged_in');
+        redirect('home');
     }
 
     function register() {
@@ -107,7 +111,7 @@ class Admin extends CI_Controller {
     private function imageUploader($location, $upload_data, $file_name){
         // Settings
         $config['upload_path'] = 'images/' . $location;
-        $config['allowed_types'] = 'gif|jpg|png|svg';
+        $config['allowed_types'] = 'gif|jpg|png|svg|jpeg';
         $config['max_size']     = '3000';
         $config['file_name'] = $file_name;
 
