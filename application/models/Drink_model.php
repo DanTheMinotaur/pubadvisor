@@ -14,6 +14,9 @@ class Drink_model extends CI_Model {
         parent::__construct();
         $this->load->database();
     }
+    /*
+     * Returns all drink data as associative array
+     */
 
     public function allDrinks() {
         // Query Database
@@ -31,6 +34,10 @@ class Drink_model extends CI_Model {
             return 0;
         }
     }
+
+    /*
+     * Retuns a single drink by it's id with all data
+     */
 
     public function getDrinkByID($id) {
         $this->db->select('product.productid, product.name, product.country_of_origin, product.percentage, productcategories.prodcatname AS type, product.image');

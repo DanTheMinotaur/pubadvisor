@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Daniel
+ * Class Admin
  * Date: 30/10/2017
- * Time: 20:47
+ * @author Daniel Devine
+ * Controller Class for Drink Page, loads views.
  */
 class Drink extends CI_Controller {
     function __construct() {

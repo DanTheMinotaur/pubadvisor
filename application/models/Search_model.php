@@ -9,8 +9,6 @@ class Search_model extends CI_Model {
     }
 
     public function search() {
-
-
         // QUERY DRINKS
         $this->db->select("p.productid as id, p.name, concat(c.prodcatname, ', ', p.country_of_origin) as info1, (select min(price) FROM pubproducts WHERE productid = p.productid) as info2, 'drink' as type, p.image");
         $this->db->from("product p, productcategories c");

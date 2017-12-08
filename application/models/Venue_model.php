@@ -14,6 +14,9 @@ class Venue_model extends CI_Model {
         $this->load->database();
     }
 
+    /*
+     * Returns all venues as an associative array
+     */
     function allVenues() {
         $this->db->select('pubid AS id, name, address, location, image');
         $this->db->from('pub');
@@ -27,6 +30,9 @@ class Venue_model extends CI_Model {
         }
     }
 
+    /*
+    * Returns venue by id
+    */
     function venueByID($id) {
         $this->db->select('pub.name, pub.address, pub.location, pub.image, pubcategories.pubcatname');
         $this->db->from('pub');
