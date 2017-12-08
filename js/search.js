@@ -64,7 +64,6 @@
                                 elements[i].style.height = maxHeight + "px";
                              }    
                          });
-                         
                      }
                 }
             }
