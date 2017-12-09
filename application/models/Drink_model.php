@@ -40,7 +40,7 @@ class Drink_model extends CI_Model {
      */
 
     public function getDrinkByID($id) {
-        $this->db->select('product.productid, product.name, product.country_of_origin, product.percentage, productcategories.prodcatname AS type, product.image');
+        $this->db->select('product.productid, product.name, product.country_of_origin, product.percentage, product.quantity, productcategories.prodcatname AS type, product.image');
         $this->db->from('product');
         $this->db->join('productcategories', 'product.prodcatid = productcategories.prodcatid', 'inner');
         $this->db->where("product.productid = $id");

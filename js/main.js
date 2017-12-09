@@ -4,7 +4,6 @@ var dublin = {lat: 53.3499612, lng: -6.2637037}; var drunkenFish = {lat: 53.3492
 var style = [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]}];
 //map object
 var map; var resizedFlag=true; var markers = [];
-
 // function init map
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -22,7 +21,7 @@ function initMap() {
       icon: '/images/icon.png'
     });
     marker.addListener('dragend', function(){
-        markers[0].setMap(null);
+        swal("Cheers!", "", "success");
     });
     //ADD MARKER TO THE MAP FUNCTION
     addMarker(drunkenFish, map, "Drunken Fekin Fish", '/images/rnd_map_icon.png');
@@ -80,7 +79,7 @@ $('#mapModal').on('shown.bs.modal', function () {
     }
     
 });
-//changing forms
+//changing forms on admin panels
 function btnAction(action)
 {
     function swap(el)
@@ -98,23 +97,34 @@ function btnAction(action)
         case 'addVenue':
             swap($('#addVenue'));
             break;
-        case 'deletePro':
-            swap($('#deletePro'));
+        case 'venues':
+            swap($('#venues'));
+            venuesLoad();
             break;
-        case 'deleteVenue':
-            swap($('#deleteVenue'));
+        case 'products':
+            swap($('#products'));
+            productsLoad();
+            break;
+        case 'inventory':
+            swap($('#inventory'));
             break;
     }
 }
-//add drink btn
+
+//ADD DRINK
 $('#addDrinkBtn').click(function () { 
     $.ajax({
         type: "post",
         url: "/admin_api/addDrink",
         data: $('#addDrink form').serialize(),
         success: function (response) {
-            swal("", response, "success");
-            $('#addDrink form').trigger("reset");
+            if(response == 'drink added.')
+            {
+                swal("", response, "success");
+                $('#addDrink form').trigger("reset");
+            }      
+            else
+                swal("", response, "error");
         },
         error: function() {
             swal("Ooopps...", "Something went wrong", "error");
@@ -122,6 +132,7 @@ $('#addDrinkBtn').click(function () {
     });
 });
 
+//ADD VENUE
 $('#addVenueBtn').click(function () { 
     $.ajax({
         type: "post",
@@ -140,4 +151,224 @@ $('#addVenueBtn').click(function () {
             swal("Ooopps...", "Something went wrong", "error");
         }
     });
+});
+
+//VENUES-----------------------------------------------------------------------
+
+//VENUES LOAD
+function venuesLoad()
+{
+    var table = $('.venue-results');
+    $.ajax({
+        type: "get",
+        url: "/api/allVenues",
+        success: function (data) {
+            table.empty();
+            $.each(data, function () {
+                var id = this.id;
+                var name = this.name;
+                table.append(
+                    '<tr><td class="id">' + id + '</td><td>' + name + '</td>' + 
+                    //buttons
+                    '<td><button class="venue-edit" data-toggle="modal" data-target="#venuesModal"><i class="fa fa-pencil" aria-hidden="true"></i></button></td><td><button class="venue-delete"><i class="fa fa-trash" aria-hidden="true"></i></button></td></tr>'
+                );
+            });
+        },
+        error: function() {
+            swal("Ooopps...", "Something went wrong", "error");
+        }
+    });
+}
+
+//VENUE EDIT ACTION
+$('#venues').on('click', '.venue-edit', function() { 
+    var id = $(this).parent().siblings('.id').text(); 
+    $.ajax({
+        type: "get",
+        url: "api/venueByID?id=" + id,
+        success: function (data) {
+            $('#modal-venue').trigger("reset");
+            $('#modal-venue input[name=name]').val(data.info[0].name);
+            $('#modal-venue input[name=address]').val(data.info[0].address);
+            $('#modal-venue input[name=location]').val(data.info[0].location); //pubcatname
+            var temp = $('#modal-venue select[name=pubcatid]');
+            switch (data.info[0].pubcatname) {
+                case 'CRAFT PUB':
+                    temp.val(1);
+                    break;
+                case 'PUBLIC HOUSE':
+                    temp.val(2);
+                    break;
+                case 'NIGHTCLUB':
+                    temp.val(3);
+                    break;
+            }
+            $('#modal-venue input[name=image]').val(data.info[0].image);
+        },
+        error: function() {
+            swal("Ooopps...", "Something went wrong", "error");
+        }
+    });
+});
+
+//VENUE TRASH DELETE ACTION
+
+$('#venues').on('click', '.venue-delete', function() { 
+    var id = $(this).parent().siblings('.id').text(); 
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this data!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "DELETE",
+                url: "/admin_api/deleteVenue",
+                data: {id: id},
+                success: function () {
+                    venuesLoad();
+                    swal("Venue was deleted from database", {
+                        icon: "success",
+                  });
+                },
+                error: function() {
+                    swal("Ooopps...", "Something went wrong", "error");
+                }
+            });            
+        } 
+      });
+});
+
+//SAVE VENUE ACTION
+$('.save-venue').click(function () { 
+    $.ajax({
+        type: "PUT",
+        url: "/admin_api/updateVenue",
+        data: $('#modal-venue').serialize(),
+        success: function (response) {
+            swal("Venue has been updated.", {
+                icon: "success",
+          });
+          venuesLoad();
+          $('#venuesModal').modal('hide');
+        },
+        error: function() {
+            swal("Ooopps...", "Something went wrong", "error");
+        }
+    });           
+});
+
+//PRODUCTS -----------------------------------------------------------------------
+
+//PRODUCTS LOAD
+function productsLoad()
+{
+    var table = $('.product-results');
+    $.ajax({
+        type: "get",
+        url: "/api/allDrinks",
+        success: function (data) {
+            table.empty();
+            $.each(data, function () {
+                var id = this.id;
+                var name = this.name;
+                table.append(
+                    '<tr><td class="id">' + id + '</td><td>' + name + '</td>' + 
+                    //buttons
+                    '<td><button class="product-edit" data-toggle="modal" data-target="#productsModal"><i class="fa fa-pencil" aria-hidden="true"></i></button></td><td><button class="product-delete"><i class="fa fa-trash" aria-hidden="true"></i></button></td></tr>'
+                );
+            });
+        },
+        error: function() {
+            swal("Ooopps...", "Something went wrong", "error");
+        }
+    });
+}
+
+//PRODUCTS EDIT ACTION
+$('#products').on('click', '.product-edit', function() { 
+    var id = $(this).parent().siblings('.id').text(); 
+    $.ajax({
+        type: "get",
+        url: "api/drinkByID?id=" + id,
+        success: function (data) {
+            $('#modal-product').trigger("reset");
+            $('#modal-product input[name=name]').val(data.info[0].name);
+            $('#modal-product input[name=percentage]').val(data.info[0].percentage);
+            $('#modal-product input[name=country]').val(data.info[0].country_of_origin); 
+            $('#modal-product input[name=quantity]').val(data.info[0].quantity); 
+            var temp = $('#modal-product select[name=type]');
+            switch (data.info[0].type) {
+                case 'Craft Beer':
+                    temp.val(1);
+                    break;
+                case 'Beer':
+                    temp.val(2);
+                    break;
+                case 'Spirit':
+                    temp.val(3);
+                    break;
+                case 'Cocktail':
+                    temp.val(4);
+                    break;
+            }
+            $('#modal-product input[name=image]').val(data.info[0].image);
+        },
+        error: function() {
+            swal("Ooopps...", "Something went wrong", "error");
+        }
+    });
+});
+
+//PRODUCT TRASH DELETE ACTION
+
+$('#products').on('click', '.product-delete', function() { 
+    var id = $(this).parent().siblings('.id').text(); 
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this data!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "DELETE",
+                url: "/admin_api/deleteDrink",
+                data: {id: id},
+                success: function () {
+                    venuesLoad();
+                    swal("Product was deleted from database", {
+                        icon: "success",
+                  });
+                },
+                error: function() {
+                    swal("Ooopps...", "Something went wrong", "error");
+                }
+            });            
+        } 
+      });
+});
+
+//SAVE PRODUCT ACTION
+$('.save-product').click(function () { 
+    $.ajax({
+        type: "PUT",
+        url: "/admin_api/updateDrink",
+        data: $('#modal-product').serialize(),
+        success: function (response) {
+            swal("Product has been updated.", {
+                icon: "success",
+          });
+          venuesLoad();
+          $('#productsModal').modal('hide');
+        },
+        error: function() {
+            swal("Ooopps...", "Something went wrong", "error");
+        }
+    });           
 });

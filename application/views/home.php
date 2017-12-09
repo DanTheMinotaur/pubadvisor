@@ -36,7 +36,7 @@
             <div class="container">
                 <div class="row">
                     <!--SINGLE SEARCH RESULT -->
-                    <div class="col-lg-4 cardAnimation" ng-repeat="obj in results | filter: {'type' : searchType=='All' ? '' : searchType} | filter: searchBar | orderBy : sortBy=='name' ? 'info2' : 'name'" stylo>
+                    <div class="col-lg-4 cardAnimation" ng-repeat="obj in results | filter: {'type' : searchType=='All' ? '' : searchType} | filter: searchBar | orderBy : sortBy=='name' ? 'name' : 'info2'" stylo>
                         <div class="result beer text-center" ng-click="goTo(obj.type | lowercase, obj.id)">
                             <div class="logoWrapper">
                                 <div class="logo" ng-attr-style="background-image:url('{{obj.image}}');"></div>

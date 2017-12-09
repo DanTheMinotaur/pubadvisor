@@ -35,7 +35,7 @@ class Admin_api extends REST_Controller {
         // Check and make sure that data is not empty
         foreach($drink_data as $key => $data) {
             if(!$data) {
-                $this->response("You missed $key, enter it... ya prick...", 400);
+                $this->response("You missed $key, enter it...");
             }
         }
 
