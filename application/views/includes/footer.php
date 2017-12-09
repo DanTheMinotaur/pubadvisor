@@ -6,7 +6,7 @@
 <script src="<?php echo base_url(); ?>js/velocity.ui.min.js"></script>
 <script src="<?php echo base_url(); ?>js/main.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhGP2z79jQ72iZ9EyfGElEO66f1D1U6RI&callback=initMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhGP2z79jQ72iZ9EyfGElEO66f1D1U6RI"></script>
 </body>
 
 </html>

@@ -123,7 +123,23 @@
 					<!--INVENTORY TABLE-->
 					<div class="col-md-4 formz" id="inventory">
 						<h2>Inventory</h2>
-						<p>Is gonna be here</p>
+						<div class="form-group">
+						<select class="form-control" name="pubs">
+							<!--PUBS GO HERE-->
+						</select>
+						<table class="table table-striped">
+							<thead class="thead-warning">
+								<tr>
+									<th scope="col">ID:</th>
+									<th scope="col">Product Name:</th>
+									<th scope="col">Price:</th>
+								</tr>
+							</thead>
+							<tbody class="inventory-results">
+								<!-- INVENTORY WILL BE LOADED HERE -->
+							</tbody>
+						</table>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -142,6 +158,10 @@
 					</div>
 					<div class="modal-body">
 						<form id="modal-venue">
+							<div class="form-group">
+								<label>Venue ID:</label>
+								<input type="number" name="id" class="form-control" readonly="true">
+							</div>
 							<div class="form-group">
 								<label>Venue name:</label>
 								<input type="text" name="name" class="form-control" placeholder="Eg. Drunken Fish">
@@ -187,7 +207,10 @@
 					</div>
 					<div class="modal-body">
 						<form id="modal-product">
-							<h2>Add Product</h2>
+							<div class="form-group">
+								<label>Product ID:</label>
+								<input type="number" name="id" class="form-control" readonly="true">
+							</div>
 							<div class="form-group">
 								<label>Product name:</label>
 								<input type="text" name="name" class="form-control" placeholder="Eg. Heineken">
@@ -206,7 +229,7 @@
 							</div>
 							<div class="form-group">
 								<label>Product category:</label>
-								<select class="form-control" name="type">
+								<select class="form-control" name="cat_id">
 									<option value="1">Craft Beer</option>
 									<option value="2">Beer</option>
 									<option value="3">Spirit</option>
@@ -222,6 +245,73 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 						<button type="button" class="btn btn-primary save-product">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Inventory Modal -->
+		<div class="modal fade" id="editInventoryModal" tabindex="-1" role="dialog" aria-labelledby="venuesModal" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Edit Inventory</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="modal-inventory-edit">
+							<div class="form-group">
+								<input type="hidden" name="id" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>Product price:</label>
+								<input type="number" step="0.1" name="price" class="form-control" placeholder="Eg. 5.5">
+							</div>
+							<div class="form-group">
+								<input type="hidden" name="pubid" class="form-control">
+							</div>
+							<div class="form-group">
+								<input type="hidden" name="productid" class="form-control">
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary save-inventory">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="addInventoryModal" tabindex="-1" role="dialog" aria-labelledby="venuesModal" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Add Inventory</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id="modal-inventory-add">
+							<div class="form-group">
+								<select class="form-control" name="productid">
+									<!--PRODUCT LIST GOES HERE-->
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Product price:</label>
+								<input type="number" step="0.1" name="price" class="form-control" placeholder="Eg. 5.5">
+							</div>
+							<div class="form-group">
+								<input type="hidden" name="pubid" class="form-control">
+							</div>
+
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary add-inventory">Add item</button>
 					</div>
 				</div>
 			</div>

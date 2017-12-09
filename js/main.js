@@ -5,6 +5,30 @@ var style = [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"
 //map object
 var map; var resizedFlag=true; var markers = [];
 // function init map
+function loadMarkers(){
+ $.ajax({
+     type: "get",
+     url: "/api/allVenues",
+     success: function (response) {
+         $.each(response, function () { 
+            var temp = this.location.split(',');
+            addMarker(new google.maps.LatLng(temp[0], temp[1]),map,this.name,'/images/rnd_map_icon.png');
+         });
+     }
+ });
+}
+
+function addMarker(_position, _map, _title, _icon){
+    let temp = 
+    new google.maps.Marker({
+        position: _position,
+        map: _map,
+        title: _title,
+        icon: _icon
+    });
+    markers.push(temp);
+}
+
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 14,
@@ -24,17 +48,8 @@ function initMap() {
         swal("Cheers!", "", "success");
     });
     //ADD MARKER TO THE MAP FUNCTION
+    loadMarkers();
     addMarker(drunkenFish, map, "Drunken Fekin Fish", '/images/rnd_map_icon.png');
-    function addMarker(_position, _map, _title, _icon){
-        let temp = 
-        new google.maps.Marker({
-            position: _position,
-            map: _map,
-            title: _title,
-            icon: _icon
-        });
-        markers.push(temp);
-    }
 
 }  
 
@@ -122,6 +137,7 @@ $('#addDrinkBtn').click(function () {
             {
                 swal("", response, "success");
                 $('#addDrink form').trigger("reset");
+                loadPubs();
             }      
             else
                 swal("", response, "error");
@@ -170,7 +186,7 @@ function venuesLoad()
                 table.append(
                     '<tr><td class="id">' + id + '</td><td>' + name + '</td>' + 
                     //buttons
-                    '<td><button class="venue-edit" data-toggle="modal" data-target="#venuesModal"><i class="fa fa-pencil" aria-hidden="true"></i></button></td><td><button class="venue-delete"><i class="fa fa-trash" aria-hidden="true"></i></button></td></tr>'
+                    '<td><button class="venue-edit" data-toggle="modal" data-target="#venuesModal"><i class="fa fa-pencil" aria-hidden="true"></i></button></td></tr>'
                 );
             });
         },
@@ -185,9 +201,10 @@ $('#venues').on('click', '.venue-edit', function() {
     var id = $(this).parent().siblings('.id').text(); 
     $.ajax({
         type: "get",
-        url: "api/venueByID?id=" + id,
+        url: "/api/venueByID?id=" + id,
         success: function (data) {
             $('#modal-venue').trigger("reset");
+            $('#modal-venue input[name=id]').val(id);
             $('#modal-venue input[name=name]').val(data.info[0].name);
             $('#modal-venue input[name=address]').val(data.info[0].address);
             $('#modal-venue input[name=location]').val(data.info[0].location); //pubcatname
@@ -227,6 +244,7 @@ $('#venues').on('click', '.venue-delete', function() {
             $.ajax({
                 type: "DELETE",
                 url: "/admin_api/deleteVenue",
+                dataType: 'application/x-www-form-urlencoded',
                 data: {id: id},
                 success: function () {
                     venuesLoad();
@@ -278,7 +296,7 @@ function productsLoad()
                 table.append(
                     '<tr><td class="id">' + id + '</td><td>' + name + '</td>' + 
                     //buttons
-                    '<td><button class="product-edit" data-toggle="modal" data-target="#productsModal"><i class="fa fa-pencil" aria-hidden="true"></i></button></td><td><button class="product-delete"><i class="fa fa-trash" aria-hidden="true"></i></button></td></tr>'
+                    '<td><button class="product-edit" data-toggle="modal" data-target="#productsModal"><i class="fa fa-pencil" aria-hidden="true"></i></button></td></tr>'
                 );
             });
         },
@@ -293,9 +311,10 @@ $('#products').on('click', '.product-edit', function() {
     var id = $(this).parent().siblings('.id').text(); 
     $.ajax({
         type: "get",
-        url: "api/drinkByID?id=" + id,
+        url: "/api/drinkByID?id=" + id,
         success: function (data) {
             $('#modal-product').trigger("reset");
+            $('#modal-product input[name=id]').val(id);
             $('#modal-product input[name=name]').val(data.info[0].name);
             $('#modal-product input[name=percentage]').val(data.info[0].percentage);
             $('#modal-product input[name=country]').val(data.info[0].country_of_origin); 
@@ -361,6 +380,7 @@ $('.save-product').click(function () {
         url: "/admin_api/updateDrink",
         data: $('#modal-product').serialize(),
         success: function (response) {
+            productsLoad();
             swal("Product has been updated.", {
                 icon: "success",
           });
@@ -371,4 +391,181 @@ $('.save-product').click(function () {
             swal("Ooopps...", "Something went wrong", "error");
         }
     });           
+});
+
+// INVENTORY -----------------------------------------------------------
+
+
+function loadPubs()
+{
+    $.ajax({
+        type: "get",
+        url: "/api/allVenues",
+        success: function (pubs) {
+            $('#inventory select[name=pubs]').empty();
+            $('#inventory select[name=pubs]').append(
+                '<option value="" disabled selected>Select the pub</option>'
+            );
+            $.each(pubs, function () { 
+                var id = this.id;
+                var name = this.name;
+                $('#inventory select[name=pubs]').append(
+                    '<option value="' + this.id + '">' + this.name + '</option>'
+                );
+            });
+        },
+        error: function() {
+            swal("Ooopps...", "Something went wrong", "error");
+        }
+    });
+}
+
+function inventoryList()
+{
+    $.ajax({
+        type: "get",
+        url: "/api/venueByID?id=" + $('#inventory select[name=pubs]').val(),
+        success: function (items) {
+            var table = $('.inventory-results');
+            table.empty();
+            $.each(items.prices, function () { 
+                table.append(
+                    '<tr><td class="id">' + this.id + '</td><td>' + this.name + '</td><td class="price">' + this.price + '</td>' +
+                    //buttons
+                    '<td><button class="inventory-edit" data-toggle="modal" data-target="#editInventoryModal"><i class="fa fa-pencil" aria-hidden="true"></i></button></td><td><button class="inventory-delete"><i class="fa fa-trash" aria-hidden="true"></i></button></td><td class="invid" style="visibility:hidden;">' + this.invid + '</td></tr>'
+                );
+            });
+            table.append(
+                '<button class="btn btn-success inventory-add" data-toggle="modal" data-target="#addInventoryModal"><i class="fa fa-plus fa-3x" aria-hidden="true"></i></button>'
+            );
+        },
+        error: function() {
+            swal("Ooopps...", "Something went wrong", "error");
+        }
+    });  
+}
+$('#inventory select[name=pubs]').change(function () { 
+    inventoryList();   
+});
+
+
+$('#inventory').on('click', '.inventory-edit', function() { 
+    var inv_id =  $(this).parent().siblings('.invid').text();
+    var price = $(this).parent().siblings('.price').text();
+    var pub_id = $('#inventory select[name=pubs]').val();
+    var product_id = $(this).parent().siblings('.id').text();
+    
+    $('#modal-inventory-edit').trigger("reset");
+    $('#modal-inventory-edit input[name=id]').val(inv_id);
+    $('#modal-inventory-edit input[name=price]').val(price);
+    $('#modal-inventory-edit input[name=pubid]').val(pub_id);
+    $('#modal-inventory-edit input[name=productid]').val(product_id);
+});
+
+$('#inventory').on('click', '.inventory-add', function() { 
+    loadModalProducts();
+    var pub_id = $('#inventory select[name=pubs]').val()
+    $('#modal-inventory-add input[name=pubid]').val(pub_id);
+});
+
+$('.save-inventory').click(function () { 
+    console.log($('#modal-inventory-edit').serialize());
+    $.ajax({
+        type: "PUT",
+        url: "/admin_api/updateInventory",
+        data: $('#modal-inventory-edit').serialize(),
+        success: function (response) {
+            inventoryList();
+            swal("Price has been updated.", {
+                icon: "success",
+          });
+          venuesLoad();
+          $('#editInventoryModal').modal('hide');
+        },
+        error: function() {
+            swal("Ooopps...", "Something went wrong", "error");
+        }
+    });         
+});
+
+function loadModalProducts()
+{
+    $.ajax({
+        type: "get",
+        url: "/api/allDrinks",
+        success: function (drinks) {
+            $('#modal-inventory-add select[name=productid]').empty();
+            $('#modal-inventory-add select[name=productid]').append(
+                '<option value="" disabled selected>Select the product</option>'
+            );
+            $.each(drinks, function () { 
+                var id = this.id;
+                var name = this.name;
+                $('#modal-inventory-add select[name=productid]').append(
+                    '<option value="' + this.id + '">' + this.name + '</option>'
+                );
+            });
+        },
+        error: function() {
+            swal("Ooopps...", "Something went wrong", "error");
+        }
+    });
+}
+
+$('.add-inventory').click(function (e) { 
+    console.log($('#modal-inventory-add').serialize());
+    $.ajax({
+        type: "POST",
+        url: "/admin_api/addInventory",
+        data: $('#modal-inventory-add').serialize(),
+        success: function (response) {
+            inventoryList();
+            swal("Price has been added.", {
+                icon: "success",
+          });
+          venuesLoad();
+          $('#editInventoryModal').modal('hide');
+        },
+        error: function() {
+            swal("Ooopps...", "Something went wrong", "error");
+        }
+    });   
+});
+
+$('#inventory').on('click', '.inventory-delete', function() { 
+    var id = $(this).parent().siblings('.invid').text(); 
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this data!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "DELETE",
+                url: "/admin_api/deleteInventory",
+                data: "id=" + id,
+                success: function () {
+                    inventoryList();
+                    swal("Item was deleted from menu", {
+                        icon: "success",
+                  });
+                },
+                error: function() {
+                    swal("Ooopps...", "Something went wrong", "error");
+                }
+            });            
+        } 
+      });
+});
+
+
+//on load
+$(document).ready(function () {
+    venuesLoad();
+    productsLoad();
+    loadPubs();
+    initMap();
 });

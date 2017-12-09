@@ -42,7 +42,7 @@ class Venue_model extends CI_Model {
         $temp = $this->db->get();
 
         if($temp->num_rows() > 0) {
-            $this->db->select("p.productid as id, p.name, pp.price, pc.prodcatname as type");
+            $this->db->select("pp.pubprodid as invid, p.productid as id, p.name, pp.price, pc.prodcatname as type");
             $this->db->from("product p, pubproducts pp, productcategories pc");
             $this->db->where("p.prodcatid = pc.prodcatid and p.productid = pp.productid and pp.pubid = $id");
             $this->db->order_by('p.name');
