@@ -3,7 +3,7 @@
 <head>
   <title>Pub Advisor</title>
   <!-- Required meta tags -->
-  <script src="/js/pace.min.js"></script>
+  <script data-pace-options='{ "ajax": false }' src="/js/pace.min.js"></script>
   <link rel="stylesheet" href="/css/loader.css">
   <script>
   Pace.on("hide", function(){
