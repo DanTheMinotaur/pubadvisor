@@ -1,10 +1,11 @@
 //dublin cordinates
-var dublin = {lat: 53.3499612, lng: -6.2637037}; var drunkenFish = {lat: 53.3492226, lng: -6.2442272};
+var dublin = {lat: 53.3499612, lng: -6.2637037};
 //map style
 var style = [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]}];
 //map object
 var map; var resizedFlag=true; var markers = [];
-// function init map
+
+//LOAD MARKERS FUNCTION CALLING API 
 function loadMarkers(){
  $.ajax({
      type: "get",
@@ -18,6 +19,7 @@ function loadMarkers(){
  });
 }
 
+//ADD MARKER TO THE MAP FUNCTION
 function addMarker(_position, _map, _title, _icon){
     let temp = 
     new google.maps.Marker({
@@ -29,6 +31,7 @@ function addMarker(_position, _map, _title, _icon){
     markers.push(temp);
 }
 
+//FUNCTION INITIATING MAP
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 14,
@@ -64,6 +67,7 @@ $('.searchField').blur(function (e) {
     $('.searchWrap').removeClass('active');
 });
 
+//HANDLER FOR SEARCH BUTTON
 $('.searchBtn, #mobile-btn').click(function () { 
     if(window.location.pathname != "/")
     {
@@ -78,6 +82,7 @@ $('.searchBtn, #mobile-btn').click(function () {
     }
 });
 
+//HANDLER FOR DROPDOWN MENU
 $('.dropdown-item').click(function (e) { 
     e.preventDefault();
     window.location.href = $(this).attr('href');
@@ -395,7 +400,7 @@ $('.save-product').click(function () {
 
 // INVENTORY -----------------------------------------------------------
 
-
+//Loading pubs into Inventory pub-select
 function loadPubs()
 {
     $.ajax({
@@ -419,7 +424,7 @@ function loadPubs()
         }
     });
 }
-
+//Loading pub inventory
 function inventoryList()
 {
     $.ajax({
@@ -444,11 +449,13 @@ function inventoryList()
         }
     });  
 }
+
+//Select pub handler to load inventory
 $('#inventory select[name=pubs]').change(function () { 
     inventoryList();   
 });
 
-
+//Inventory Edit Handler - Modal
 $('#inventory').on('click', '.inventory-edit', function() { 
     var inv_id =  $(this).parent().siblings('.invid').text();
     var price = $(this).parent().siblings('.price').text();
@@ -462,12 +469,15 @@ $('#inventory').on('click', '.inventory-edit', function() {
     $('#modal-inventory-edit input[name=productid]').val(product_id);
 });
 
+//INVENTORU ADD HANDLER
 $('#inventory').on('click', '.inventory-add', function() { 
     loadModalProducts();
     var pub_id = $('#inventory select[name=pubs]').val()
     $('#modal-inventory-add input[name=pubid]').val(pub_id);
 });
 
+
+//INVENTORY SAVE HANDLER
 $('.save-inventory').click(function () { 
     console.log($('#modal-inventory-edit').serialize());
     $.ajax({
@@ -488,6 +498,7 @@ $('.save-inventory').click(function () {
     });         
 });
 
+//LOAD PRODUCTS INTO THE ADD INVENTORY MODAL
 function loadModalProducts()
 {
     $.ajax({
@@ -512,6 +523,7 @@ function loadModalProducts()
     });
 }
 
+//ADD INVENTORY HANDLER
 $('.add-inventory').click(function (e) { 
     console.log($('#modal-inventory-add').serialize());
     $.ajax({
@@ -532,6 +544,8 @@ $('.add-inventory').click(function (e) {
     });   
 });
 
+
+//DELETE INVENTORY HANDLER
 $('#inventory').on('click', '.inventory-delete', function() { 
     var id = $(this).parent().siblings('.invid').text(); 
     swal({
@@ -562,7 +576,7 @@ $('#inventory').on('click', '.inventory-delete', function() {
 });
 
 
-//on load
+//ACTION ON DOCUMENT LOAD
 $(document).ready(function () {
     venuesLoad();
     productsLoad();

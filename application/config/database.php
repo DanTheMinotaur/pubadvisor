@@ -78,11 +78,10 @@ $query_builder = TRUE;
  * */
 
 $db['default'] = array(
-	'dsn'	=> 'pgsql:host=localhost;port=5432;dbname=PubAdvisor;user=pubadvisor_user;password=test123',
-	'hostname' => 'localhost',
-	'username' => 'pubadvisor_user',
-	'password' => 'test123',
-	'database' => 'PubAdvisor',
+	'dsn'	=> 'pgsql:port=5432;dbname=jkowal_PubAdvisor;user=jkowal_pa_user;password=Fr33Drink$',
+	'username' => 'jkowal_pa_user',
+	'password' => 'Fr33Drink$',
+	'database' => 'jkowal_PubAdvisor',
 	'dbdriver' => 'pdo',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -100,11 +99,10 @@ $db['default'] = array(
 );
 
 $db['admin'] = array(
-    'dsn'	=> 'pgsql:host=localhost;port=5432;dbname=PubAdvisor;user=pubadvisor_admin;password=HelloWorld2468',
-    'hostname' => 'localhost',
-    'username' => 'pubadvisor_admin',
-    'password' => 'HelloWorld2468',
-    'database' => 'PubAdvisor',
+	'dsn'	=> 'pgsql:port=5432;dbname=jkowal_PubAdvisor;user=jkowal;password=91Q00sytrF',
+	'username' => 'jkowal',
+	'password' => '91Q00sytrF',
+	'database' => 'jkowal_PubAdvisor',
     'dbdriver' => 'pdo',
     'dbprefix' => '',
     'pconnect' => FALSE,
